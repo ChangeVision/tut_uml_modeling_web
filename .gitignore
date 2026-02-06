@@ -38,3 +38,5 @@ tmp/
 
 # Rerun (開発時の自動再起動ツール)
 .rerun.pid
+# サンプルDBは除外しない
+!bowling_sample.db
