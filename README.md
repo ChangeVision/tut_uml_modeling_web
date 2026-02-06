@@ -48,4 +48,4 @@ bundle exec rerun -- rackup -p 4567
 
 ## ライセンス
 
-Private
+提供するチュートリアルの文書を含むやリポジトリ全体について、link:https://creativecommons.org/licenses/by-nc-nd/4.0[クリエイティブ・コモンズ CC-BY-NC-ND 4.0] に従います。
