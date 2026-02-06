@@ -1,0 +1,257 @@
+body {
+    background-color: honeydew;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    color: gray;
+}
+
+h1, h2, h3 {
+    border-width : 0 0 0 8px;
+    border-style : solid;
+    padding-left : 0.3em;
+    padding-right : 0.5em;
+}
+
+h1 {
+    margin: 0em 0em 0em 0em;
+    font-size : 1.2em;
+    color : white;
+    border-color : #fff8dc;
+    background-color : maroon;
+    border-width: 0.1em 0em 0.1em 0.1em;
+    padding-top : 0.2em;
+    padding-bottom : 0.2em;
+}
+
+h2 {
+    font-size : 1.2em;
+    color: navy;
+    border-color : navy;
+    padding-top : 0.4em;
+    padding-bottom : 0.4em;
+    display: inline-block;
+}
+
+h3 {
+    font-size : 1em;
+    color : darkgreen;
+    border-color : darkgreen;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    max-width: 1120px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-right: 2px solid gray;
+    border-bottom: 2px solid gray;
+    margin: 20px 0;
+}
+
+table th {
+    width: 40px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background: linear-gradient(#829ebc, #225588);
+    border-left: 2px solid #3c6690;
+    border-top: 2px solid #3c6690;
+    border-bottom: 2px solid #3c6690;
+    box-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3) inset;
+    padding: 5px 0;
+}
+
+table th.ten {
+    width: 60px;
+}
+
+.current {
+    width: 40px;
+    color: yellow;
+    background: linear-gradient(#babb81, #878722);
+}
+
+.current-ten {
+    width: 60px;
+    color: yellow;
+    background: linear-gradient(#babb81, #878722);
+}
+
+table td {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-left: 2px solid gray;
+    border-bottom: 2px solid gray;
+    border-top: none;
+    padding: 0;
+    margin: 0;
+    background-color: #ffffef;
+}
+
+.username {
+    width: 100px;
+    text-align: center;
+}
+
+.total {
+    width: 80px;
+    text-align: center;
+}
+
+.current-total {
+    width: 80px;
+    color: yellow;
+    text-align: center;
+    background: linear-gradient(#babb81, #878722);
+}
+
+.score {
+    padding: 7px 0;
+    text-align: center;
+}
+
+.first {
+    width: 40px;
+    height: 40px;
+    border-bottom: none;
+    text-align: center;
+    padding: 0px;
+    position: relative;
+}
+
+.second {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 0px;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    position: relative;
+}
+
+.third {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding: 0px;
+    border-left: 1px solid gray;
+    border-bottom: 1px solid gray;
+    position: relative;
+}
+
+/* スペア表示 - 右下三角形（塗りつぶし） */
+.spare {
+    border-style: solid;
+    border-width: 0 0 40px 40px;
+    border-color: transparent transparent #555555 #dcf5f1;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* ストライク表示 - ×印（4つの三角形） */
+.strike {
+    border-style: solid;
+    border-width: 20px 20px 20px 20px;
+    border-color: #dcf5f1 #555555 #dcf5f1 #555555;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.split {
+    background: transparent;
+    border-style: solid;
+    border-color: #555555;
+    border-radius: 50%;
+    width: 27px;
+    height: 27px;
+    font-size: 1.1em;
+    text-align: center;
+    line-height: 30px;
+    margin: 6px auto;
+    display: inline-block;
+}
+
+.form-group {
+    margin: 15px 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: navy;
+}
+
+.form-group input {
+    width: 300px;
+    padding: 8px;
+    border: 2px solid #3c6690;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    background: linear-gradient(#829ebc, #225588);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background: linear-gradient(#225588, #829ebc);
+}
+
+.pin-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.pin-button {
+    padding: 15px 20px;
+    font-size: 18px;
+    min-width: 60px;
+    background: linear-gradient(#829ebc, #225588);
+}
+
+.pin-button:hover {
+    background: linear-gradient(#225588, #829ebc);
+}
+
+.debug-info {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+}
+
+.game-list {
+    margin: 20px 0;
+}
+
+.game-list table {
+    width: 100%;
+}

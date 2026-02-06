@@ -5,9 +5,6 @@ require 'sqlite3'
 require 'json'
 require 'securerandom'
 
-# 静的ファイルの配信設定
-set :public_folder, 'public'
-
 # データベース初期化
 def init_database
   db = SQLite3::Database.new('bowling.db')
@@ -54,86 +51,7 @@ def init_database
   db.close
 end
 
-# ヘルパーメソッド：投球の表示
-helpers do
-  def display_roll(frame, roll_type, is_ten_frame: false)
-    value = frame.send(roll_type)
-
-    # 未投球チェック
-    return '' if value.nil?
-
-    # 10フレームの特殊処理
-    if is_ten_frame
-      if roll_type == :first
-        return '<div class="strike"></div>' if value == 10
-        return 'G' if value == 0
-        return value.to_s
-      elsif roll_type == :second
-        return '' if frame.first.nil?
-
-        if frame.first == 10
-          return '<div class="strike"></div>' if value == 10
-          return 'G' if value == 0
-          return value.to_s
-        else
-          return '<div class="spare"></div>' if frame.first + value == 10
-          return 'G' if value == 0
-          return '―'
-          return value.to_s
-        end
-      elsif roll_type == :third
-        return '' if frame.first.nil? || frame.second.nil?
-
-        # 3投目を投げる条件：ストライクまたはスペアの場合のみ
-        prev_total = (frame.first == 10 ? 10 : frame.first) + frame.second
-
-        # ストライクもスペアもない場合は3投目なし
-        return '' if prev_total < 10
-
-        # 3投目が未投球の場合（nilまたは初期値0）
-        # フレームの状態がFIXEDでない場合は未投球と判断
-        return '' if value.nil?
-        return '' if value == 0 && frame.state != :FIXED
-
-        # 3投目の表示
-        if prev_total >= 10
-          return '<div class="strike"></div>' if value == 10
-          if frame.second == 10
-            return 'G' if value == 0
-            return value.to_s
-          else
-            if frame.first == 10
-              return '<div class="spare"></div>' if frame.second + value == 10
-            end
-            return 'G' if value == 0
-            return value.to_s
-          end
-        end
-        return ''
-      end
-    end
-
-    # 通常フレーム（1-9フレーム）
-    if roll_type == :first
-      return '<div class="strike"></div>' if value == 10
-      return 'G' if value == 0
-      return value.to_s
-    elsif roll_type == :second
-      return '' if frame.first.nil?
-      return '' if frame.first == 10
-      return '<div class="spare"></div>' if frame.first + value == 10
-      if value == 0
-        return 'G' if frame.first == 0
-        return '―'
-      end
-      return value.to_s
-    end
-
-    ''
-  end
-end
-
-# 既存のクラス定義（Frame, Score, Game）
+# 既存のクラスを軽量化（データベース連携版）
 class Frame
   attr_reader :frame_no
   attr_accessor :first, :second, :third, :spare_bonus, :strike_bonus, :total, :state
@@ -142,7 +60,7 @@ class Frame
     @frame_no = frame_no
     @first = first
     @second = second
-    @third = third
+    @third = third # 10フレーム用
     @spare_bonus = spare_bonus
     @strike_bonus = strike_bonus
     @total = total
@@ -181,10 +99,12 @@ class Score
     @frames = []
 
     if frames_data.empty?
+      # 新規作成時
       (-1..13).each do |frame_no|
         @frames << Frame.new(frame_no)
       end
     else
+      # DB復元時
       (-1..13).each do |frame_no|
         frame_data = frames_data.find { |f| f['frame_no'] == frame_no }
         if frame_data
@@ -256,6 +176,7 @@ class Score
       @state = :WAIT_FOR_2ND
     when :WAIT_FOR_2ND
       frame10.second = pins
+      # ストライクまたはスペアなら3投目が必要
       if frame10.strike? || frame10.spare?
         frame10.state = :BEFORE_3RD
         @state = :WAIT_FOR_3RD
@@ -350,17 +271,21 @@ class Game
     return false unless player
 
     old_fno = player.fno
+    old_state = player.state
 
     success = player.scoring(pins)
     return false unless success
 
+    # ターン進行の判定
     should_change_turn = false
 
     if old_fno <= 9
+      # 1-9フレーム: フレームが進んだ場合（ストライクまたは2投完了）
       if player.fno > old_fno
         should_change_turn = true
       end
     elsif old_fno == 10
+      # 10フレーム: プレイヤーが完了した場合のみ
       if player.finished?
         should_change_turn = true
       end
@@ -382,14 +307,17 @@ end
 def save_game_state(game)
   db = SQLite3::Database.new('bowling.db')
 
+  # ゲーム状態更新
   status = game.finished? ? 'completed' : 'playing'
   db.execute('UPDATE games SET status = ?, turn_index = ? WHERE id = ?',
              status, game.turn, game.id)
 
+  # プレイヤー状態更新
   game.scores.each do |score|
     db.execute('UPDATE players SET current_frame = ?, state = ? WHERE id = ?',
                score.fno, score.state.to_s, score.id)
 
+    # フレームデータ更新
     score.frames.each do |frame|
       next if frame.frame_no < 1 || frame.frame_no > 10
 
@@ -409,14 +337,17 @@ def load_game(game_id)
   db = SQLite3::Database.new('bowling.db')
   db.results_as_hash = true
 
+  # ゲーム情報取得
   game_data = db.execute('SELECT * FROM games WHERE id = ?', game_id).first
   return nil unless game_data
 
   game = Game.new(game_id, turn_index: game_data['turn_index'])
 
+  # プレイヤー情報取得
   players = db.execute('SELECT * FROM players WHERE game_id = ? ORDER BY player_index', game_id)
 
   players.each do |player_data|
+    # フレームデータ取得
     frames = db.execute('SELECT * FROM frames WHERE player_id = ?', player_data['id'])
 
     score = Score.new(
@@ -434,34 +365,7 @@ def load_game(game_id)
   game
 end
 
-def validate_pins(player, pins)
-  current_frame = player.current
-
-  case player.state
-  when :WAIT_FOR_2ND
-    if player.fno == 10
-      unless current_frame.strike?
-        if (current_frame.first || 0) + pins > 10
-          return "2投目は#{10 - (current_frame.first || 0)}ピン以下にしてください"
-        end
-      end
-    else
-      if (current_frame.first || 0) + pins > 10
-        return "2投目は#{10 - (current_frame.first || 0)}ピン以下にしてください"
-      end
-    end
-  when :WAIT_FOR_3RD
-    frame10 = player.frame(10)
-    if frame10.first != 10 && frame10.second != 10 && (frame10.first || 0) + (frame10.second || 0) != 10
-      if (frame10.second || 0) + pins > 10
-        return "3投目は#{10 - (frame10.second || 0)}ピン以下にしてください"
-      end
-    end
-  end
-
-  nil
-end
-
+# Webアプリケーション部分
 configure do
   enable :method_override
   init_database
@@ -496,6 +400,7 @@ post '/games' do
     db.execute('INSERT INTO players (id, game_id, name, player_index) VALUES (?, ?, ?, ?)',
                player_id, game_id, name, index)
 
+    # フレームデータ初期化
     (1..10).each do |frame_no|
       db.execute('INSERT INTO frames (player_id, frame_no) VALUES (?, ?)',
                  player_id, frame_no)
@@ -524,6 +429,7 @@ post '/games/:id/play' do
   player = game.current_player
   return { error: 'No current player' }.to_json unless player
 
+  # ボーリングルールの検証
   validation_error = validate_pins(player, pins)
   return { error: validation_error }.to_json if validation_error
 
@@ -539,6 +445,37 @@ post '/games/:id/play' do
   end
 end
 
+def validate_pins(player, pins)
+  current_frame = player.current
+
+  case player.state
+  when :WAIT_FOR_2ND
+    if player.fno == 10
+      # 10フレーム2投目：1投目がストライクでなければ合計10以下
+      unless current_frame.strike?
+        if (current_frame.first || 0) + pins > 10
+          return "2投目は#{10 - (current_frame.first || 0)}ピン以下にしてください"
+        end
+      end
+    else
+      # 1-9フレーム2投目：合計10以下
+      if (current_frame.first || 0) + pins > 10
+        return "2投目は#{10 - (current_frame.first || 0)}ピン以下にしてください"
+      end
+    end
+  when :WAIT_FOR_3RD
+    # 10フレーム3投目の制約（複雑なので簡略化）
+    frame10 = player.frame(10)
+    if frame10.first != 10 && frame10.second != 10 && (frame10.first || 0) + (frame10.second || 0) != 10
+      if (frame10.second || 0) + pins > 10
+        return "3投目は#{10 - (frame10.second || 0)}ピン以下にしてください"
+      end
+    end
+  end
+
+  nil # エラーなし
+end
+
 post '/games/:id/delete' do
   db = SQLite3::Database.new('bowling.db')
   db.execute('DELETE FROM frames WHERE player_id IN (SELECT id FROM players WHERE game_id = ?)', params[:id])
@@ -552,12 +489,24 @@ __END__
 
 @@layout
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
   <title>Bowling Score Manager</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/scoresheet.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    .form-group { margin: 10px 0; }
+    button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    .pin-buttons { display: flex; flex-wrap: wrap; gap: 5px; margin: 20px 0; }
+    .pin-button { padding: 15px; font-size: 18px; min-width: 50px; }
+    .current-player { background-color: #e7f3ff; }
+    .finished { background-color: #e7ffe7; }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -567,52 +516,55 @@ __END__
 </html>
 
 @@index
-<h1>ボウリングスコア管理システム</h1>
+<h1>Bowling Score Manager</h1>
 
 <h2>新しいゲームを開始</h2>
 <form method="post" action="/games">
   <div class="form-group">
     <label>プレイヤー名（カンマ区切り）:</label>
-    <input type="text" name="players" placeholder="田中,佐藤,鈴木" required>
+    <input type="text" name="players" placeholder="田中,佐藤,鈴木" required style="width: 300px;">
   </div>
   <button type="submit">ゲーム開始</button>
 </form>
 
 <h2>ゲーム履歴</h2>
-<div class="game-list">
-  <table>
-    <tr>
-      <th class="username">ゲームID</th>
-      <th>プレイヤー</th>
-      <th>状態</th>
-      <th>開始時刻</th>
-      <th>操作</th>
-    </tr>
-    <% @games.each do |game| %>
-    <tr>
-      <td><%= game['id'][0,8] %></td>
-      <td><%= game['players'] || '未設定' %></td>
-      <td><%= game['status'] == 'completed' ? '完了' : 'プレイ中' %></td>
-      <td><%= game['start_time'] %></td>
-      <td>
-        <a href="/games/<%= game['id'] %>"><button type="button">表示</button></a>
-        <form method="post" action="/games/<%= game['id'] %>/delete" style="display:inline;">
-          <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
-        </form>
-      </td>
-    </tr>
-    <% end %>
-  </table>
-</div>
+<table>
+  <tr>
+    <th>ゲームID</th>
+    <th>プレイヤー</th>
+    <th>状態</th>
+    <th>開始時刻</th>
+    <th>操作</th>
+  </tr>
+  <% @games.each do |game| %>
+  <tr>
+    <td><%= game['id'][0,8] %></td>
+    <td><%= game['players'] || '未設定' %></td>
+    <td><%= game['status'] == 'completed' ? '完了' : 'プレイ中' %></td>
+    <td><%= game['start_time'] %></td>
+    <td>
+      <a href="/games/<%= game['id'] %>">表示</a>
+      <form method="post" action="/games/<%= game['id'] %>/delete" style="display:inline;">
+        <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+      </form>
+    </td>
+  </tr>
+  <% end %>
+</table>
 
 @@game
-<h1>ボウリングゲーム</h1>
-<p><a href="/"><button type="button">← 戻る</button></a></p>
+<h1>ボーリングゲーム</h1>
+<p><a href="/">← 戻る</a></p>
 
 <% if @game.finished? %>
 <h2 style="color: green;">ゲーム完了！</h2>
 <% else %>
 <h2>現在のプレイヤー: <%= @game.current_player.player %></h2>
+<p>フレーム: <%= @game.current_player.fno %>, 状態: <%= @game.current_player.state %></p>
+<% if @game.current_player.fno == 10 %>
+  <% frame10 = @game.current_player.frame(10) %>
+  <p>10フレーム詳細: 1投目=<%= frame10.first || '-' %>, 2投目=<%= frame10.second || '-' %>, 3投目=<%= frame10.third || '-' %>, 状態=<%= frame10.state %></p>
+<% end %>
 
 <div class="pin-buttons">
   <%
@@ -622,11 +574,14 @@ __END__
       max_pins = 10
     when :WAIT_FOR_2ND
       if @game.current_player.fno == 10
+        # 10フレーム2投目：1投目がストライクなら10ピン、そうでなければ残りピン
         max_pins = current_frame.strike? ? 10 : (10 - current_frame.first)
       else
+        # 1-9フレーム2投目：残りピン数
         max_pins = 10 - current_frame.first
       end
     when :WAIT_FOR_3RD
+      # 10フレーム3投目：2投目までがストライクなら10、スペアなら10、そうでなければ残り
       frame10 = @game.current_player.frame(10)
       if frame10.first == 10 || frame10.second == 10 || (frame10.first + frame10.second == 10)
         max_pins = 10
@@ -643,49 +598,37 @@ __END__
 </div>
 <% end %>
 
-<h2>スコアボード</h2>
+<h3>スコアボード</h3>
 <table>
   <tr>
-    <th class="username">名前</th>
-    <% (1..9).each do |frame| %>
-      <%
-        current_turn = !@game.finished? && @game.current_player.fno == frame
-        th_class = current_turn ? 'current' : ''
-      %>
-      <th class="<%= th_class %>" colspan="2"><%= frame %></th>
+    <th>プレイヤー</th>
+    <% (1..10).each do |frame| %>
+      <th>第<%= frame %>フレーム</th>
     <% end %>
-    <%
-      current_turn_ten = !@game.finished? && @game.current_player.fno == 10
-      th_class_ten = current_turn_ten ? 'current-ten' : 'ten'
-    %>
-    <th class="<%= th_class_ten %>" colspan="3">10</th>
-    <th class="total">Total</th>
+    <th>合計</th>
   </tr>
-
   <% @game.scores.each do |score| %>
-  <tr>
-    <td class="username" rowspan="2"><%= score.player %></td>
-    <% (1..9).each do |frame_no| %>
-      <% frame = score.frame(frame_no) %>
-      <td class="first"><%= display_roll(frame, :first) %></td>
-      <td class="second"><%= display_roll(frame, :second) %></td>
-    <% end %>
-
-    <% frame10 = score.frame(10) %>
-    <td class="first"><%= display_roll(frame10, :first, is_ten_frame: true) %></td>
-    <td class="second"><%= display_roll(frame10, :second, is_ten_frame: true) %></td>
-    <td class="third"><%= display_roll(frame10, :third, is_ten_frame: true) %></td>
-
-    <td class="total" rowspan="2"><%= score.frame(10).total %></td>
-  </tr>
-  <tr>
+  <tr class="<%= score == @game.current_player ? 'current-player' : '' %> <%= score.finished? ? 'finished' : '' %>">
+    <td><%= score.player %></td>
     <% (1..10).each do |frame_no| %>
-      <%
-        frame = score.frame(frame_no)
-        colspan = frame_no == 10 ? 3 : 2
-      %>
-      <td class="score" colspan="<%= colspan %>"><%= frame.total %></td>
+      <% frame = score.frame(frame_no) %>
+      <td>
+        <% if frame_no == 10 %>
+          <div>
+            <%= frame.first.nil? ? '-' : frame.first %> |
+            <%= frame.second.nil? ? '-' : frame.second %><% if frame.strike? || frame.spare? || (!frame.third.nil? && frame.third >= 0) %> |
+            <%= frame.third.nil? ? '-' : frame.third %><% end %>
+          </div>
+        <% else %>
+          <div>
+            <%= frame.first.nil? ? '-' : frame.first %> |
+            <%= frame.second.nil? ? '-' : frame.second %>
+          </div>
+        <% end %>
+        <div><%= frame.total %></div>
+      </td>
     <% end %>
+    <td><strong><%= score.frame(10).total %></strong></td>
   </tr>
   <% end %>
 </table>
