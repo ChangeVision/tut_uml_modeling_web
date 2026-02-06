@@ -1,0 +1,40 @@
+# SQLiteデータベースファイル
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Ruby/Bundler関連
+.bundle/
+vendor/bundle/
+*.gem
+*.rbc
+
+# 環境設定
+.env
+.env.local
+
+# ログファイル
+*.log
+log/
+
+# 一時ファイル
+tmp/
+*.tmp
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# エディタ
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Rerun (開発時の自動再起動ツール)
+.rerun.pid
