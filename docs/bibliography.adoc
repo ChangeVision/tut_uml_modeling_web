@@ -1,0 +1,40 @@
+[bibliography]
+== 参考文献
+
+=== UMLとモデリング
+
+* [[[umtp]]] UMLモデリング技能認定試験, https://www.umtp-japan.org/
+* [[[uml-distilled]]] Martin Fowler (著), 長瀬 嘉秀 (監訳), 株式会社テクノロジックアート (訳), 『UMLモデリングのエッセンス 第3版』, 翔泳社, 2005
+* [[[uml-user-guide]]] Grady Booch, James Rumbaugh, Ivar Jacobson (著), オージス総研 オブジェクトの広場編集部 (訳), 『UML ユーザーガイド 第2版』, ピアソン・エデュケーション, 2007
+
+=== オブジェクト指向設計
+
+* [[[design-patterns]]] Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides (著), 本位田 真一, 吉田 和樹 (監訳), 『オブジェクト指向における再利用のためのデザインパターン』, ソフトバンククリエイティブ, 1999
+* [[[refactoring]]] Martin Fowler (著), 児玉 公信, 平澤 章, 友野 晶夫, 梅澤 真史 (訳), 『リファクタリング 既存のコードを安全に改善する (第2版)』, オーム社, 2019
+
+=== Ruby
+
+* [[[ruby-book]]] まつもとゆきひろ, 『プログラミング言語 Ruby』, オライリー・ジャパン, 2009
+* [[[effective-ruby]]] Peter J. Jones (著), 長尾 高弘 (訳), arton (まえがき), 『Effective Ruby』, 翔泳社, 2015
+* [[[ruby-website]]] Ruby公式サイト, https://www.ruby-lang.org/ja/
+
+=== Webアプリケーション開発
+
+* [[[sinatra-docs]]] Sinatra Documentation, http://sinatrarb.com/documentation.html
+* [[[rails-tutorial]]] Michael Hartl (著), 安川 要平 (訳), 『Ruby on Rails チュートリアル 第6版』, インプレス, 2021
+* [[[web-api-design]]] Arnaud Lauret (著), 株式会社クイープ (訳), 『Web API設計のベストプラクティス』, 翔泳社, 2020
+
+=== データベース設計
+
+* [[[db-design]]] ミック, 『達人に学ぶDB設計 徹底指南書』, 翔泳社, 2012
+* [[[sql-antipatterns]]] Bill Karwin (著), 和田 卓人 (監訳), 『SQLアンチパターン』, オライリー・ジャパン, 2013
+* [[[sqlite-docs]]] SQLite Documentation, https://www.sqlite.org/docs.html
+
+=== ソフトウェア工学
+
+* [[[clean-code]]] Robert C. Martin (著), 花井 志生 (訳), 『Clean Code アジャイルソフトウェア達人の技』, アスキー・メディアワークス, 2009
+* [[[pragmatic-programmer]]] David Thomas, Andrew Hunt (著), 村上 雅章 (訳), 『達人プログラマー 第2版』, オーム社, 2020
+
+=== ボーリング
+
+* [[[bowling-rules]]] 日本ボウリング場協会, https://www.jubf.or.jp/

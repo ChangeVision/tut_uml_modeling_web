@@ -1,0 +1,140 @@
+[glossary]
+== 用語集
+
+=== UML関連
+
+[[uml]]UML (Unified Modeling Language)::
+統一モデリング言語。ソフトウェアシステムを視覚化するための標準的な記法。
+
+[[class-diagram]]クラス図 (Class Diagram)::
+クラスの構造と、クラス間の関係を表現する図。
+
+[[sequence-diagram]]シーケンス図 (Sequence Diagram)::
+オブジェクト間の相互作用を時系列で表現する図。
+
+[[state-machine-diagram]]状態機械図 (State Machine Diagram)::
+オブジェクトの状態遷移を表現する図。
+
+[[activity-diagram]]アクティビティ図 (Activity Diagram)::
+処理の流れを表現する図。
+
+[[component-diagram]]コンポーネント図 (Component Diagram)::
+システムの物理的な構造を表現する図。
+
+[[deployment-diagram]]配置図 (Deployment Diagram)::
+システムの物理的な配置を表現する図。
+
+=== オブジェクト指向関連
+
+[[class]]クラス (Class)::
+オブジェクトの設計図。属性と操作を持つ。
+
+[[object]]オブジェクト (Object)::
+クラスから生成された実体。
+
+[[attribute]]属性 (Attribute)::
+オブジェクトが保持するデータ。
+
+[[operation]]操作 (Operation)::
+オブジェクトが提供する機能。
+
+[[association]]関連 (Association)::
+クラス間の関係。
+
+[[aggregation]]集約 (Aggregation)::
+全体と部分の関係を表す弱い関連。
+
+[[composition]]コンポジション (Composition)::
+全体と部分の関係を表す強い関連。
+
+=== ボーリング関連
+
+[[frame]]フレーム (Frame)::
+ボーリングの1回の投球機会。通常は2回投球できる。
+
+[[strike]]ストライク (Strike)::
+1投目で10本すべてのピンを倒すこと。
+
+[[spare]]スペア (Spare)::
+2投目までに10本すべてのピンを倒すこと。
+
+[[gutter]]ガター (Gutter)::
+ピンを1本も倒せなかったこと。
+
+=== Web関連
+
+[[web-application]]Webアプリケーション (Web Application)::
+Webブラウザを通して利用するアプリケーション。
+
+[[http]]HTTP (HyperText Transfer Protocol)::
+WebブラウザとWebサーバー間の通信プロトコル。
+
+[[request]]リクエスト (Request)::
+クライアントからサーバーへの要求。
+
+[[response]]レスポンス (Response)::
+サーバーからクライアントへの応答。
+
+[[html]]HTML (HyperText Markup Language)::
+Webページを記述するためのマークアップ言語。
+
+[[css]]CSS (Cascading Style Sheets)::
+Webページのスタイルを定義する言語。
+
+[[framework]]フレームワーク (Framework)::
+アプリケーション開発のための基盤となるソフトウェア。
+
+[[sinatra]]Sinatra::
+Rubyの軽量Webフレームワーク。
+
+=== データベース関連
+
+[[database]]データベース (Database)::
+データを永続的に保存するシステム。
+
+[[rdbms]]RDBMS (Relational Database Management System)::
+リレーショナルデータベース管理システム。
+
+[[sql]]SQL (Structured Query Language)::
+データベースを操作するための言語。
+
+[[sqlite]]SQLite::
+ファイルベースの軽量なRDBMS。
+
+[[table]]テーブル (Table)::
+データベース内のデータを格納する表。
+
+[[column]]カラム (Column)::
+テーブル内の列。属性に相当する。
+
+[[row]]行 (Row)::
+テーブル内の1件のデータ。
+
+[[primary-key]]主キー (Primary Key)::
+テーブル内の各行を一意に識別するカラム。
+
+[[foreign-key]]外部キー (Foreign Key)::
+他のテーブルの主キーを参照するカラム。
+
+[[er-diagram]]ER図 (Entity Relationship Diagram)::
+データベースの構造を表現する図。
+
+=== アーキテクチャ関連
+
+[[architecture]]アーキテクチャ (Architecture)::
+システムの構造や構成要素の配置。
+
+[[layer]]層 (Layer)::
+システムを機能ごとに分けた階層。
+
+[[presentation-layer]]プレゼンテーション層 (Presentation Layer)::
+ユーザーとのやり取りを担当する層。
+
+[[business-logic-layer]]ビジネスロジック層 (Business Logic Layer)::
+業務ロジックを担当する層。
+
+[[data-layer]]データ層 (Data Layer)::
+データの永続化を担当する層。
+
+[[separation-of-concerns]]関心の分離 (Separation of Concerns)::
+異なる関心事を異なるモジュールに分離する設計原則。

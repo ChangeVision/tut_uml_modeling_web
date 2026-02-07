@@ -1,0 +1,23 @@
+:author: 久保秋 真
+:authorinitials: KS
+:email: kuboaki@gmail.com
+
+:revnumber: 1.0
+:revdate: 2026-02-07
+:revremark: 初版
+
+:organization: チェンジビジョン
+:orgurl: https://www.change-vision.com/
+
+:lang: ja
+:encoding: UTF-8
+
+// Web版特有の情報
+:web-version: true
+:base-tutorial: UML初学者向けチュートリアル: モデルを使ってソフトウェアを開発しよう
+:base-tutorial-url: https://github.com/ChangeVision/tut_uml_modeling_bs
+
+// タイトル情報
+ifndef::backend-pdf[]
+= UML初学者向けチュートリアル: モデルを使ってWebアプリケーションを開発しよう
+endif::[]
