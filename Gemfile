@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.3.5'
+ruby '3.4.4'
 
 gem 'ostruct', '~> 0.6'
 gem 'rackup', '~> 2.1'
