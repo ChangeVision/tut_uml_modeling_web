@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
+<meta name="author" content="株式会社チェンジビジョン">
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
+                       font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
+             .nav-footer{text-align: center; margin-top: auto;}
+             .nav-footer > p > a {white-space: nowrap;}</style>
+</head>
+<body id="_まえがき" class="book toc2 toc-left">
+<div id="header">
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<div class="details">
+<span id="author" class="author">株式会社チェンジビジョン</span><br>
+<span id="revnumber">バージョン html 0903,</span>
+<span id="revdate">2026-03-29</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">目次</div>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_まえがき.html"><span class="toc-current">まえがき</span></a>
+<ul class="sectlevel2">
+<li><a href="_まえがき.html#_このチュートリアルについて">このチュートリアルについて</a>
+</li>
+<li><a href="_まえがき.html#_元のチュートリアルとの関係">元のチュートリアルとの関係</a>
+</li>
+<li><a href="_まえがき.html#_対象読者">対象読者</a>
+</li>
+<li><a href="_まえがき.html#_必要な環境">必要な環境</a>
+</li>
+<li><a href="_まえがき.html#_このチュートリアルの構成">このチュートリアルの構成</a>
+</li>
+<li><a href="_まえがき.html#_表記について">表記について</a>
+</li>
+<li><a href="_まえがき.html#_フィードバックについて">フィードバックについて</a>
+</li>
+</ul>
+</li>
+<li><a href="_copyright.html">注意事項</a>
+</li>
+<li><a href="_preparation.html">1. 準備</a>
+</li>
+<li><a href="_structure_design.html">2. スコアシートの構造を調べる</a>
+</li>
+<li><a href="_model_to_code_design.html">3. モデルとコードの対応づけ</a>
+</li>
+<li><a href="_behavior_design.html">4. スコアやフレームの状態を調べる</a>
+</li>
+<li><a href="_program_test.html">5. できあがったプログラムを試す</a>
+</li>
+<li><a href="_summary.html">6. まとめ</a>
+</li>
+<li><a href="_other_diagrams.html">7. 他の図、他の機能など</a>
+</li>
+<li><a href="_appendix-01.html">付録 A: モデルやプログラムの作成例</a>
+</li>
+<li><a href="_bibliography.html">参考文献</a>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_まえがき"><a class="anchor" href="#_まえがき"></a>まえがき</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_このチュートリアルについて"><a class="anchor" href="#_このチュートリアルについて"></a>このチュートリアルについて</h3>
+<div class="paragraph">
+<p>このチュートリアルは、UMLモデリングの基礎を学びながら、
+実際にWebアプリケーションを開発することを目的としています。</p>
+</div>
+<div class="paragraph">
+<p>題材として、ボーリングのスコア計算システムを取り上げ、
+以下の流れで開発を進めます。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>モデルで設計する（クラス図、状態機械図など）</p>
+</li>
+<li>
+<p>モデルからコードを生成する</p>
+</li>
+<li>
+<p>Webアプリケーションとして実装する</p>
+</li>
+<li>
+<p>データベースで永続化する</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_元のチュートリアルとの関係"><a class="anchor" href="#_元のチュートリアルとの関係"></a>元のチュートリアルとの関係</h3>
+<div class="paragraph">
+<p>このチュートリアルは、『UML初学者向けチュートリアル: モデルを使って
+ソフトウェアを開発しよう』のWeb版です。</p>
+</div>
+<div class="paragraph">
+<p>元のチュートリアルでは、コマンドライン版のアプリケーションを開発しました。
+このWeb版では、同じビジネスロジックを活用しながら、Webアプリケーション
+として実装する方法を学びます。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">重要なポイント</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>ビジネスロジック（スコア計算）は共通</p>
+</li>
+<li>
+<p>モデル駆動開発のアプローチは共通</p>
+</li>
+<li>
+<p>Webアプリケーション特有の設計を追加</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_対象読者"><a class="anchor" href="#_対象読者"></a>対象読者</h3>
+<div class="paragraph">
+<p>このチュートリアルは、以下のような方を対象としています。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>プログラミングの基礎知識がある</p>
+</li>
+<li>
+<p>Rubyの基本的な文法を理解している</p>
+</li>
+<li>
+<p>Webアプリケーションを作ってみたい</p>
+</li>
+<li>
+<p>UMLモデリングを実践的に学びたい</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_必要な環境"><a class="anchor" href="#_必要な環境"></a>必要な環境</h3>
+<div class="paragraph">
+<p>このチュートリアルを進めるには、以下の環境が必要です。</p>
+</div>
+<div class="sect3">
+<h4 id="_モデリングツール"><a class="anchor" href="#_モデリングツール"></a>モデリングツール</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">astah* Professional</dt>
+<dd>
+<p>UMLモデリングツールです。クラス図、シーケンス図、ER図などを作成します。
+学生・教員の方は無償ライセンスを申請できます。</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_プログラミング環境"><a class="anchor" href="#_プログラミング環境"></a>プログラミング環境</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Ruby 3.4.4以上</dt>
+<dd>
+<p>プログラミング言語です。rbenvを使った管理を推奨します。</p>
+</dd>
+<dt class="hdlist1">Sinatra 4.0</dt>
+<dd>
+<p>軽量なWebフレームワークです。Bundlerを使ってインストールします。</p>
+</dd>
+<dt class="hdlist1">SQLite 1.7</dt>
+<dd>
+<p>ファイルベースのデータベースです。開発環境に適しています。</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_動作確認環境"><a class="anchor" href="#_動作確認環境"></a>動作確認環境</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Webブラウザ</dt>
+<dd>
+<p>Google Chrome、Safari、Firefox、Edgeなど、モダンなブラウザであれば
+どれでも動作します。開発者ツールが使えるブラウザを推奨します。</p>
+</dd>
+<dt class="hdlist1">ターミナル（コマンドライン）</dt>
+<dd>
+<p>Rubyプログラムの実行、Webサーバーの起動などに使用します。
+macOSならTerminal.app、WindowsならWindows Terminalなど。</p>
+</dd>
+<dt class="hdlist1">テキストエディタ</dt>
+<dd>
+<p>プログラムコードを編集するためのエディタです。
+Visual Studio Code、Sublime Text、Atomなどを推奨します。</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_オペレーティングシステム"><a class="anchor" href="#_オペレーティングシステム"></a>オペレーティングシステム</h4>
+<div class="paragraph">
+<p>以下のいずれかのOSで動作を確認しています：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>macOS 12以降</p>
+</li>
+<li>
+<p>Ubuntu 20.04以降</p>
+</li>
+<li>
+<p>Windows 10/11（WSL2使用）</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">注記</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>このチュートリアルのサンプルコードは、主にmacOSとLinuxでの
+動作を想定しています。Windowsで実行する場合は、WSL2（Windows Subsystem for Linux）
+の使用を推奨します。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ネットワーク環境"><a class="anchor" href="#_ネットワーク環境"></a>ネットワーク環境</h4>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">インターネット接続</dt>
+<dd>
+<p>Rubyのgemパッケージをインストールするためにインターネット接続が必要です。
+また、参考資料の閲覧にも使用します。</p>
+</dd>
+<dt class="hdlist1">ローカルホスト</dt>
+<dd>
+<p>開発中のWebアプリケーションは、自分のコンピュータ上で動作します
+（localhost:4567など）。外部からのアクセスは不要です。</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>詳しいインストール手順は、第1章「準備」を参照してください。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_このチュートリアルの構成"><a class="anchor" href="#_このチュートリアルの構成"></a>このチュートリアルの構成</h3>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">第1章 準備</dt>
+<dd>
+<p>開発環境とモデリングツールを準備します。</p>
+</dd>
+<dt class="hdlist1">第2章 構造の設計</dt>
+<dd>
+<p>クラス図でシステムの構造を設計します。</p>
+</dd>
+<dt class="hdlist1">第3章 振る舞いの設計</dt>
+<dd>
+<p>状態機械図などで振る舞いを設計します。</p>
+</dd>
+<dt class="hdlist1">第4章 モデルからコードへの設計</dt>
+<dd>
+<p>モデルをRubyコードに変換します。</p>
+</dd>
+<dt class="hdlist1">第5章 プログラムのテスト</dt>
+<dd>
+<p>作成したプログラムをテストします。</p>
+</dd>
+<dt class="hdlist1">第6章 Web化の設計</dt>
+<dd>
+<p>Webアプリケーションのアーキテクチャを設計します。</p>
+</dd>
+<dt class="hdlist1">第7章 データベース設計</dt>
+<dd>
+<p>クラス図からER図、SQLへと変換します。</p>
+</dd>
+<dt class="hdlist1">第8章 Web実装</dt>
+<dd>
+<p>設計をもとにWebアプリケーションを実装します。</p>
+</dd>
+<dt class="hdlist1">第9章 UI設計</dt>
+<dd>
+<p>ユーザーインターフェースを設計します。</p>
+</dd>
+<dt class="hdlist1">第10章 まとめ</dt>
+<dd>
+<p>学んだことを振り返り、発展的な学習へつなげます。</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_表記について"><a class="anchor" href="#_表記について"></a>表記について</h3>
+<div class="paragraph">
+<p>このチュートリアルでは、以下の表記規則を使用しています。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">コマンドライン</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ コマンド</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">プログラムコード</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="ruby"># Rubyのコード例
+class Example
+end</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">重要な注意事項</dt>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">注記</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>注意すべき内容</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">役立つヒント</dt>
+</dl>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">ヒント</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>知っておくと便利な情報</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_フィードバックについて"><a class="anchor" href="#_フィードバックについて"></a>フィードバックについて</h3>
+<div class="paragraph">
+<p>このチュートリアルへのフィードバックは、GitHubリポジトリのIssuesで受け付けています。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/ChangeVision/tut_uml_modeling_web" class="bare">https://github.com/ChangeVision/tut_uml_modeling_web</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>誤字・脱字、内容の誤りなど、お気づきの点があればお知らせください。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph nav-footer">
+<p>↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a> | 次: <a href="_copyright.html">注意事項</a> →</p>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+バージョン html 0903<br>
+最終更新 2026-03-28 04:07:57 +0900
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

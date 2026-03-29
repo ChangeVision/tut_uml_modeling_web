@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
+<meta name="author" content="株式会社チェンジビジョン">
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
+<style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
+                       font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
+             .nav-footer{text-align: center; margin-top: auto;}
+             .nav-footer > p > a {white-space: nowrap;}</style>
+</head>
+<body id="_bibliography" class="book toc2 toc-left">
+<div id="header">
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<div class="details">
+<span id="author" class="author">株式会社チェンジビジョン</span><br>
+<span id="revnumber">バージョン html 0903,</span>
+<span id="revdate">2026-03-29</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">目次</div>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_まえがき.html">まえがき</a>
+</li>
+<li><a href="_copyright.html">注意事項</a>
+</li>
+<li><a href="_preparation.html">1. 準備</a>
+</li>
+<li><a href="_structure_design.html">2. スコアシートの構造を調べる</a>
+</li>
+<li><a href="_model_to_code_design.html">3. モデルとコードの対応づけ</a>
+</li>
+<li><a href="_behavior_design.html">4. スコアやフレームの状態を調べる</a>
+</li>
+<li><a href="_program_test.html">5. できあがったプログラムを試す</a>
+</li>
+<li><a href="_summary.html">6. まとめ</a>
+</li>
+<li><a href="_other_diagrams.html">7. 他の図、他の機能など</a>
+</li>
+<li><a href="_appendix-01.html">付録 A: モデルやプログラムの作成例</a>
+</li>
+<li><a href="_bibliography.html"><span class="toc-current">参考文献</span></a>
+<ul class="sectlevel2">
+<li><a href="_bibliography.html#_umlとモデリング">UMLとモデリング</a>
+</li>
+<li><a href="_bibliography.html#_オブジェクト指向設計">オブジェクト指向設計</a>
+</li>
+<li><a href="_bibliography.html#_ruby">Ruby</a>
+</li>
+<li><a href="_bibliography.html#_webアプリケーション開発">Webアプリケーション開発</a>
+</li>
+<li><a href="_bibliography.html#_データベース設計">データベース設計</a>
+</li>
+<li><a href="_bibliography.html#_ソフトウェア工学">ソフトウェア工学</a>
+</li>
+<li><a href="_bibliography.html#_ボーリング">ボーリング</a>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_bibliography"><a class="anchor" href="#_bibliography"></a>参考文献</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_umlとモデリング"><a class="anchor" href="#_umlとモデリング"></a>UMLとモデリング</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="umtp"></a>[umtp] UMLモデリング技能認定試験, <a href="https://www.umtp-japan.org/" class="bare">https://www.umtp-japan.org/</a></p>
+</li>
+<li>
+<p><a id="uml-distilled"></a>[uml-distilled] Martin Fowler (著), 長瀬 嘉秀 (監訳), 株式会社テクノロジックアート (訳), 『UMLモデリングのエッセンス 第3版』, 翔泳社, 2005</p>
+</li>
+<li>
+<p><a id="uml-user-guide"></a>[uml-user-guide] Grady Booch, James Rumbaugh, Ivar Jacobson (著), オージス総研 オブジェクトの広場編集部 (訳), 『UML ユーザーガイド 第2版』, ピアソン・エデュケーション, 2007</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_オブジェクト指向設計"><a class="anchor" href="#_オブジェクト指向設計"></a>オブジェクト指向設計</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="design-patterns"></a>[design-patterns] Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides (著), 本位田 真一, 吉田 和樹 (監訳), 『オブジェクト指向における再利用のためのデザインパターン』, ソフトバンククリエイティブ, 1999</p>
+</li>
+<li>
+<p><a id="refactoring"></a>[refactoring] Martin Fowler (著), 児玉 公信, 平澤 章, 友野 晶夫, 梅澤 真史 (訳), 『リファクタリング 既存のコードを安全に改善する (第2版)』, オーム社, 2019</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ruby"><a class="anchor" href="#_ruby"></a>Ruby</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="ruby-book"></a>[ruby-book] まつもとゆきひろ, 『プログラミング言語 Ruby』, オライリー・ジャパン, 2009</p>
+</li>
+<li>
+<p><a id="effective-ruby"></a>[effective-ruby] Peter J. Jones (著), 長尾 高弘 (訳), arton (まえがき), 『Effective Ruby』, 翔泳社, 2015</p>
+</li>
+<li>
+<p><a id="ruby-website"></a>[ruby-website] Ruby公式サイト, <a href="https://www.ruby-lang.org/ja/" class="bare">https://www.ruby-lang.org/ja/</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_webアプリケーション開発"><a class="anchor" href="#_webアプリケーション開発"></a>Webアプリケーション開発</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="sinatra-docs"></a>[sinatra-docs] Sinatra Documentation, <a href="http://sinatrarb.com/documentation.html" class="bare">http://sinatrarb.com/documentation.html</a></p>
+</li>
+<li>
+<p><a id="rails-tutorial"></a>[rails-tutorial] Michael Hartl (著), 安川 要平 (訳), 『Ruby on Rails チュートリアル 第6版』, インプレス, 2021</p>
+</li>
+<li>
+<p><a id="web-api-design"></a>[web-api-design] Arnaud Lauret (著), 株式会社クイープ (訳), 『Web API設計のベストプラクティス』, 翔泳社, 2020</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_データベース設計"><a class="anchor" href="#_データベース設計"></a>データベース設計</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="db-design"></a>[db-design] ミック, 『達人に学ぶDB設計 徹底指南書』, 翔泳社, 2012</p>
+</li>
+<li>
+<p><a id="sql-antipatterns"></a>[sql-antipatterns] Bill Karwin (著), 和田 卓人 (監訳), 『SQLアンチパターン』, オライリー・ジャパン, 2013</p>
+</li>
+<li>
+<p><a id="sqlite-docs"></a>[sqlite-docs] SQLite Documentation, <a href="https://www.sqlite.org/docs.html" class="bare">https://www.sqlite.org/docs.html</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ソフトウェア工学"><a class="anchor" href="#_ソフトウェア工学"></a>ソフトウェア工学</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="clean-code"></a>[clean-code] Robert C. Martin (著), 花井 志生 (訳), 『Clean Code アジャイルソフトウェア達人の技』, アスキー・メディアワークス, 2009</p>
+</li>
+<li>
+<p><a id="pragmatic-programmer"></a>[pragmatic-programmer] David Thomas, Andrew Hunt (著), 村上 雅章 (訳), 『達人プログラマー 第2版』, オーム社, 2020</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ボーリング"><a class="anchor" href="#_ボーリング"></a>ボーリング</h3>
+<div class="ulist bibliography">
+<ul class="bibliography">
+<li>
+<p><a id="bowling-rules"></a>[bowling-rules] 日本ボウリング場協会, <a href="https://www.jubf.or.jp/" class="bare">https://www.jubf.or.jp/</a></p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+<hr>
+<div class="paragraph">
+<p>「モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）」</p>
+</div>
+<div class="paragraph">
+<p>発行日 : 2026-03-29<br>
+バージョン : html 0903<br>
+作成者 : 株式会社チェンジビジョン<br>
+本書の内容に関する質問等がありましたら、作成者までお知らせください。</p>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph nav-footer">
+<p>← 前: <a href="_appendix-01.html">AppendixA</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></p>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+バージョン html 0903<br>
+最終更新 2026-03-28 04:07:57 +0900
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</body>
+</html>

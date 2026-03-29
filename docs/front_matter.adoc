@@ -1,23 +1,126 @@
-:author: 久保秋 真
-:authorinitials: KS
-:email: kuboaki@gmail.com
-
-:revnumber: 1.0
-:revdate: 2026-02-07
-:revremark: 初版
-
+:encoding: utf-8
+:lang: ja
+:scripts: cjk
+:doctype: book
+:media: prepress
+:author: 株式会社チェンジビジョン
 :organization: チェンジビジョン
 :orgurl: https://www.change-vision.com/
+:doctitle: モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）
+:authorinitials: CV
+:description: この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。
+// revnumberは別途、文書に応じて revnumber.adocを読み込む
+// :revremark: {docdate}
+// revdate をfront_matterで定義しても原稿の日付と合わないので、コマンドラインで渡す
+// docdate は各ファイルに記載しておく（もし参照するなら）
+// :revdate: {docdate}
+// :version-label!:
+:linkcss:
+:stylesdir: css
+:stylesheet: mystyle.css
+:imagesdir: images
+:sourcesdir: codes
+:title-logo-image: image::ChangeVision_Logo.svg[pdfwidth=2.0in,align=left,top=3%]
 
-:lang: ja
-:encoding: UTF-8
+:pdf-theme: ./theme/pdf/mystyle-theme.yml
+// :pdf-theme: ./theme/pdf/prepress-theme.ymlg
+// :pdf-theme: ./theme/pdf/default-for-print-with-font-fallbacks-theme.yml
+// :pdf-theme: ./theme/pdf/default-with-font-fallbacks-theme.yml
+// :pdf-theme: ./theme/pdf/cjk-theme.yml
+:pdf-fontsdir: ./fonts;GEM_FONTS_DIR
+:imagesdir: images
+:sourcesdir: ../codes
 
-// Web版特有の情報
-:web-version: true
-:base-tutorial: UML初学者向けチュートリアル: モデルを使ってソフトウェアを開発しよう
-:base-tutorial-url: https://github.com/ChangeVision/tut_uml_modeling_bs
+:stem:
+:sectanchors:
+:autofit-option:
+:experimental:
+:support-uri:
+:original-support-uri:
 
-// タイトル情報
-ifndef::backend-pdf[]
-= UML初学者向けチュートリアル: モデルを使ってWebアプリケーションを開発しよう
+ifdef::backend-pdf[]
+:icons: image
+:iconsdir: images/icons
+:icontype: svg
 endif::[]
+
+ifdef::backend-html5[]
+:icons: font
+:icon-set: fa
+endif::[]
+
+:toclevels: 2
+:toc: left
+:pagenums:
+// :sectnumlevels: 4
+
+include::image_size_matter.adoc[]
+include::attributes.adoc[]
+
+:xrefstyle: short
+:section-refsig:
+:chapter-refsig:
+
+//ifdef::backend-html5[]
+//:source-highlighter: rouge
+//:rouge-style: custom
+:source-highlighter: prettify
+//endif::[]
+
+ifdef::backend-pdf[]
+:source-highlighter: rouge
+:rouge-style: custom
+endif::[]
+
+// user defined.
+
+// astah関連
+:astah: astah*
+:uml: UML
+:astah: astah* Professional
+:astah-url: https://astah.change-vision.com/ja/
+
+// Ruby関連
+:ruby-version: 3.4.4
+:ruby-url: https://www.ruby-lang.org/ja/
+
+// Web版で使用する技術
+:sinatra: Sinatra
+:sinatra-version: 4.0
+:sinatra-url: http://sinatrarb.com/
+
+:sqlite: SQLite
+:sqlite-version: 1.7
+:sqlite-url: https://www.sqlite.org/
+
+// リポジトリ
+:repo-url: https://github.com/ChangeVision/tut_uml_modeling_web
+:base-repo-url: https://github.com/ChangeVision/tut_uml_modeling_bs
+
+// コード関連
+:source-language: ruby
+:code-dir: codes
+
+// 部、章の体裁を変更 lib/heading-treeprocessor.rb を使う
+:part-label: 第%s部
+// :part-label: Part %s
+:chapter-label: 第%s章
+// :chapter-label: %s
+// :section-label: %s節  // これはやめておく
+:example-caption: 例
+
+// autoxref settings lib/autoxref-treeprocessor.rb を使う
+// :autoxref-sectcaption: %d.%d節  // これはやめておく
+:autoxref-imagecaption: 図 %d.%d
+:autoxref-listingcaption: リスト %d.%d
+:autoxref-tablecaption: 表 %d.%d
+:autoxref-examplecaption: 例 %d.%d
+:autoxref-sidebarcaption: コラム %d
+:autoxref-appendixcaption: 付録 %d.%d
+:autoxref-videocaption: 動画 %d.%d
+:autoxref-audiocaption: 音声 %d.%d
+
+:multipage-nav-previous-label: 前
+:multipage-nav-up-label: 上
+:multipage-nav-home-label: 先頭
+:multipage-nav-next-label: 次

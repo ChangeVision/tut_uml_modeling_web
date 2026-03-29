@@ -1,43 +1,23 @@
-// このファイルは、チュートリアル全体で使用する属性を定義します。
-
-// astah関連
-:astah: astah* Professional
-:astah-url: https://astah.change-vision.com/ja/
-
-// Ruby関連
-:ruby-version: 3.3.5
-:ruby-url: https://www.ruby-lang.org/ja/
-
-// Web版で使用する技術
-:sinatra: Sinatra
-:sinatra-version: 4.0
-:sinatra-url: http://sinatrarb.com/
-
-:sqlite: SQLite
-:sqlite-version: 1.7
-:sqlite-url: https://www.sqlite.org/
-
-// リポジトリ
-:repo-url: https://github.com/ChangeVision/tut_uml_modeling_web
-:base-repo-url: https://github.com/ChangeVision/tut_uml_modeling_bs
-
-// コード関連
-:source-language: ruby
-:code-dir: codes
-
-// アイコン
-:icons: font
-:tip-caption: 💡
-:note-caption: 📝
-:important-caption: ⚠️
-:caution-caption: 🔥
-:warning-caption: ⚡
-
-// その他
-:experimental:
-:toc: left
-:toclevels: 3
-:sectnums:
-:sectnumlevels: 3
-:chapter-label: 第
+// This file provides translations for all built-in attributes in Asciidoctor that output localized cont
+// See http://asciidoctor.org/docs/user-manual/#customizing-labels to learn how to use it.
+// IMPORTANT: Do not add any blank lines.
+// 日本語のところだけ抜粋
+// Japanese translation, courtesy of Takayuki Konishi <seannos.takayuki@gmail.com>
+ifeval::["{lang}" == "ja"]
 :appendix-caption: 付録
+:caution-caption: 注意
+:example-caption: 例
+:figure-caption: 図
+:important-caption: 重要
+:last-update-label: 最終更新
+:listing-caption: リスト
+:manname-title: 名前
+:note-caption: 注記
+//:preface-title: まえがき
+:table-caption: 表
+:tip-caption: ヒント
+:toc-title: 目次
+:untitled-label: 無題
+:version-label: バージョン
+:warning-caption: 警告
+endif::[]

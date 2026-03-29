@@ -1,0 +1,134 @@
+:encoding: utf-8
+:lang: ja
+:doctype: book
+:sectnums:
+:partnums:
+
+:linkcss:
+:stylesdir: ../../css
+:stylesheet: mystyle.css
+
+include::../../attributes.adoc[]
+
+:part-label: 第%s部
+:chapter-label: 第%s章
+
+:xrefstyle: full
+:chapter-refsig:
+:section-refsig:
+
+//:autoxref-chapter: 1
+//:autoxref-chaptersectlevel: 1
+:autoxref-imagecaption: 図%d.%d
+:autoxref-listingcaption: リスト%d.%d
+:autoxref-tablecaption: 表%d.%d
+
+:toc: left
+
+
+= Doc Name
+
+[preface]
+== Preface
+
+This is prefade.
+
+= Part Name
+
+
+[[chap-first]]
+== Chapname
+
+[[sec-first]]
+=== Test Section
+
+[[subsec-first]]
+==== Subsection 1
+
+As you can see, you should be wary of snake oils (<<list-snake-oil>>, <<list-snake-oil_2>>).
+
+[[list-snake-oil]]
+[title="Snake Oil Code Examples"]
+[source]
+----
+return 42;
+----
+
+[[list-snake-oil_2]]
+.Snake Oil Code Examples 2
+[source]
+----
+return 42;
+----
+
+These are the prices of snake oils (<<table-prices>>):
+
+[[table-prices]]
+[title="Prices of snake oils"]
+|===
+|A|B|C
+|43$|44$|45$ (ugh!)
+|===
+
+==== Subsection 2
+
+See? If you haven't, refer to <<sec-first>>, I'll wait.  It's there and should read <<subsec-first>>. <<subsect-first, named 1.1.1 Subsection-1>>.
+
+see statemachine( <<stm01>> ).
+
+[[stm01]]
+.statemachine
+image::GSW-20191022-063704.png[]
+
+CP: <<chap-first>>, SC: <<sec-first>>, and so on.
+
+[[chap-second]]
+== Next Chapname
+
+[[sec-second]]
+=== Test Section 2
+
+paragraph,paragraph,paragraph,paragraph,paragraph.
+
+==== Test subsection 2
+
+paragraph,paragraph,paragraph,paragraph,paragraph(<<list-snake-oil_3>> ).
+
+[[list-snake-oil_3]]
+.Snake Oil Code Examples 3
+[source]
+----
+return 42;
+----
+
+These are the prices of snake oils (<<table-prices_2>>):
+
+[[table-prices_2]]
+.Prices of snake oils 2
+|===
+|A|B|C
+|43$|44$|45$ (ugh!)
+|===
+
+[appendix]
+= sample refs
+
+
+These are the prices of snake oils (<<table-prices_3>>):
+
+[[table-prices_3]]
+.Prices of snake oils 3
+|===
+|A|B|C
+|43$|44$|45$ (ugh!)
+|===
+
+paragraph,paragraph,paragraph,paragraph,paragraph(<<list-snake-oil_4>>
+).
+
+[[list-snake-oil_4]]
+.Snake Oil Code Examples 4
+[source]
+----
+return 42;
+----
