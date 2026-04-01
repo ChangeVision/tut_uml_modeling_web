@@ -7,8 +7,9 @@
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
 <meta name="author" content="株式会社チェンジビジョン">
-<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</title>
 <link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
@@ -17,16 +18,16 @@
 </head>
 <body id="_program_test" class="book toc2 toc-left">
 <div id="header">
-<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</h1>
 <div class="details">
 <span id="author" class="author">株式会社チェンジビジョン</span><br>
-<span id="revnumber">バージョン html 0903,</span>
-<span id="revdate">2026-03-29</span>
+<span id="revnumber">バージョン html 0951,</span>
+<span id="revdate">2026-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
-<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
-<li><a href="_まえがき.html">まえがき</a>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_preface.html">はじめに</a>
 </li>
 <li><a href="_copyright.html">注意事項</a>
 </li>
@@ -384,30 +385,30 @@ end</code></pre>
 <div id="ruby_all_code02" class="listingblock">
 <div class="title">リスト 5.2 【Ruby】<code>score.rb</code>（ファイル末尾に追加したテストコード部分）</div>
 <div class="content">
-<pre class="prettyprint highlight linenums:292"><code data-lang="ruby">if $PROGRAM_NAME == __FILE__ # <b class="conum">(1)</b>
-  sheet = ScoreSheet.new(Time.now) # <b class="conum">(2)</b>
-  sheet.add_game # <b class="conum">(3)</b>
-  game = sheet.games.last # <b class="conum">(4)</b>
-  game.entry('くぼあき') # <b class="conum">(5)</b>
+<pre class="prettyprint highlight linenums:292"><code data-lang="ruby">if $PROGRAM_NAME == __FILE__ <i class="conum" data-value="1"></i><b>(1)</b>
+  sheet = ScoreSheet.new(Time.now) <i class="conum" data-value="2"></i><b>(2)</b>
+  sheet.add_game <i class="conum" data-value="3"></i><b>(3)</b>
+  game = sheet.games.last <i class="conum" data-value="4"></i><b>(4)</b>
+  game.entry('くぼあき') <i class="conum" data-value="5"></i><b>(5)</b>
   game.entry('うえはら')
-  puts sheet # <b class="conum">(6)</b>
+  puts sheet <i class="conum" data-value="6"></i><b>(6)</b>
 
-  game_records = [ # <b class="conum">(7)</b>
+  game_records = [ <i class="conum" data-value="7"></i><b>(7)</b>
     [6, 3, 9, 0, 0, 3, 8, 2, 7, 3, 10, 9, 1, 8, 0, 10, 10, 6, 4],
     [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
     # [7, 0, 5, 5, 10, 10, 5, 4, 10, 7, 3, 5, 4, 7, 3, 7, 3, 4],
     # [6, 3, 9, 0, 0, 3, 8, 2, 7, 3, 10, 9, 1, 8, 0, 10, 6, 3]
   ]
 
-  until game.finished? # <b class="conum">(8)</b>
+  until game.finished? <i class="conum" data-value="8"></i><b>(8)</b>
     puts '----------------------------------------'
     puts "turn: #{game.turn_player_name}"
-    score_index = game.turn # <b class="conum">(9)</b>
-    pins = game_records[score_index].shift # <b class="conum">(10)</b>
+    score_index = game.turn <i class="conum" data-value="9"></i><b>(9)</b>
+    pins = game_records[score_index].shift <i class="conum" data-value="10"></i><b>(10)</b>
     puts "input pins: #{pins}"
-    game.playing(score_index, pins) # <b class="conum">(11)</b>
-    puts game.to_s # <b class="conum">(12)</b>
-    gets # <b class="conum">(13)</b>
+    game.playing(score_index, pins) <i class="conum" data-value="11"></i><b>(11)</b>
+    puts game.to_s <i class="conum" data-value="12"></i><b>(12)</b>
+    gets <i class="conum" data-value="13"></i><b>(13)</b>
   end
 
   puts "Game(id:#{game.id}) is finished."
@@ -415,47 +416,60 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>実行時プログラム名とファイル名が同じとき（このファイル自身から実行したとき）に実行する部分のはじまり。</p>
-</li>
-<li>
-<p>新しいスコアシートを作成する。</p>
-</li>
-<li>
-<p>作成したスコアシートにゲームを追加する。</p>
-</li>
-<li>
-<p>追加したゲームを選ぶ（ここでは最後のゲームを選ぶ方法をとった）。</p>
-</li>
-<li>
-<p>ゲームへプレーヤーがエントリーする。このプレーヤーのこのゲーム用のスコアが用意される。</p>
-</li>
-<li>
-<p>スコアシートの作成日付とIDの表示。</p>
-</li>
-<li>
-<p>テスト用データ。1行が1人の1ゲーム分のピン数のデータ。</p>
-</li>
-<li>
-<p>ゲームの終了まで繰り返し。</p>
-</li>
-<li>
-<p>turnは、そのゲーム内の何番目のプレーヤーか（ゲーム中の何番目のスコアか）を表している。このテストコードでは2人がエントリしているので、0→1→0→1 と繰り返す。</p>
-</li>
-<li>
-<p>現在のturnのプレーヤーのピン数のテストデータを先頭から1つずつ取り出す。</p>
-</li>
-<li>
-<p>現在のturnのプレーヤーのスコアにピン数を渡して、スコアへ反映する。</p>
-</li>
-<li>
-<p>現在のゲームの全体像を取得して表示する。</p>
-</li>
-<li>
-<p>ここで空の改行キーを入力してテストを進める。テストを1回ずつ止めて実行できる。この入力待ちをやめれば一括して実行できる。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>実行時プログラム名とファイル名が同じとき（このファイル自身から実行したとき）に実行する部分のはじまり。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>新しいスコアシートを作成する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>作成したスコアシートにゲームを追加する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>追加したゲームを選ぶ（ここでは最後のゲームを選ぶ方法をとった）。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>ゲームへプレーヤーがエントリーする。このプレーヤーのこのゲーム用のスコアが用意される。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>スコアシートの作成日付とIDの表示。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>テスト用データ。1行が1人の1ゲーム分のピン数のデータ。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>ゲームの終了まで繰り返し。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>turnは、そのゲーム内の何番目のプレーヤーか（ゲーム中の何番目のスコアか）を表している。このテストコードでは2人がエントリしているので、0→1→0→1 と繰り返す。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>現在のturnのプレーヤーのピン数のテストデータを先頭から1つずつ取り出す。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>現在のturnのプレーヤーのスコアにピン数を渡して、スコアへ反映する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>現在のゲームの全体像を取得して表示する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="13"></i><b>13</b></td>
+<td>ここで空の改行キーを入力してテストを進める。テストを1回ずつ止めて実行できる。この入力待ちをやめれば一括して実行できる。</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -479,16 +493,16 @@ end</code></pre>
 <pre class="prettyprint highlight"><code data-lang="console">C:\Users\kuboaki&gt;cd Desktop\BowlingScore
 
 C:\Users\kuboaki\Desktop\BowlingScore&gt;ruby score.rb
-Score Sheet Date: 2022-02-26 02:08:21 +0900(id:0GG70gNRWtk) # <b class="conum">(1)</b>
+Score Sheet Date: 2022-02-26 02:08:21 +0900(id:0GG70gNRWtk) <i class="conum" data-value="1"></i><b>(1)</b>
 ----------------------------------------
-turn: くぼあき # <b class="conum">(2)</b>
-input pins: 7 # <b class="conum">(3)</b>
-Game(id:zwBxlorJlog), # <b class="conum">(4)</b>
-Player:くぼあき, Score(id: q5rZ-vnFM1o), Frame:1, # <b class="conum">(5)</b>
+turn: くぼあき <i class="conum" data-value="2"></i><b>(2)</b>
+input pins: 7 <i class="conum" data-value="3"></i><b>(3)</b>
+Game(id:zwBxlorJlog), <i class="conum" data-value="4"></i><b>(4)</b>
+Player:くぼあき, Score(id: q5rZ-vnFM1o), Frame:1, <i class="conum" data-value="5"></i><b>(5)</b>
 |No|1st|2nd|Total|Frame Score|Spare Bonus|Strike Bonus|Frame State|
-|-1|  0|  0|    .|          0|          0|           0|   RESERVED| # <b class="conum">(6)</b>
+|-1|  0|  0|    .|          0|          0|           0|   RESERVED| <i class="conum" data-value="6"></i><b>(6)</b>
 | 0|  0|  0|    .|          0|          0|           0|   RESERVED|
-| 1|  7|  0|    .|          7|          0|           0| BEFORE_2ND| # <b class="conum">(7)</b>
+| 1|  7|  0|    .|          7|          0|           0| BEFORE_2ND| <i class="conum" data-value="7"></i><b>(7)</b>
 | 2|  0|  0|    .|          0|          0|           0|   RESERVED|
 | 3|  0|  0|    .|          0|          0|           0|   RESERVED|
 | 4|  0|  0|    .|          0|          0|           0|   RESERVED|
@@ -539,7 +553,7 @@ Player:くぼあき, Score(id: q5rZ-vnFM1o), Frame:11,
 | 8|  5|  4|  124|          9|          0|           0|      FIXED|
 | 9|  7|  3|  141|         17|          7|           0|      FIXED|
 |10|  7|  3|  155|         14|          4|           0|      FIXED|
-|11|  4|  0|    .|          4|          0|           0| BEFORE_2ND| # <b class="conum">(8)</b>
+|11|  4|  0|    .|          4|          0|           0| BEFORE_2ND| <i class="conum" data-value="8"></i><b>(8)</b>
 |12|  0|  0|    .|          0|          0|           0|   RESERVED|
 |13|  0|  0|    .|          0|          0|           0|   RESERVED|
 Player:うえはら, Score(id: plq9pFD6nSA), Frame:10,
@@ -565,32 +579,40 @@ C:\Users\kuboaki\Desktop\BowlingScore&gt;</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>スコアシートの作成日付とIDの表示。</p>
-</li>
-<li>
-<p>どのプレーヤーのターンなのかを表示した。</p>
-</li>
-<li>
-<p>プログラムが受け取ったピン数。</p>
-</li>
-<li>
-<p>現在のゲームのID。</p>
-</li>
-<li>
-<p>プレーヤーとそのプレーヤーのスコアのID、現在のフレーム番号。</p>
-</li>
-<li>
-<p>前の前のフレームを無条件に扱うためのダミーフレーム。</p>
-</li>
-<li>
-<p>1投目が終わったので、フレームは2投目の投球前の状態。</p>
-</li>
-<li>
-<p>ここは2投目の投球前の状態だが、第10フレームの状態が「FIXED」なのでゲームは終了。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>スコアシートの作成日付とIDの表示。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>どのプレーヤーのターンなのかを表示した。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>プログラムが受け取ったピン数。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>現在のゲームのID。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>プレーヤーとそのプレーヤーのスコアのID、現在のフレーム番号。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>前の前のフレームを無条件に扱うためのダミーフレーム。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>1投目が終わったので、フレームは2投目の投球前の状態。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>ここは2投目の投球前の状態だが、第10フレームの状態が「FIXED」なのでゲームは終了。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>動作を確認できるよう、テストプログラムを実行した様子を収めた動画を用意しました。
@@ -618,13 +640,13 @@ C:\Users\kuboaki\Desktop\BowlingScore&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← 前: <a href="_behavior_design.html">第4章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a> | 次: <a href="_summary.html">第6章</a> →</p>
+<p>← 前: <a href="_behavior_design.html">第4章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a> | 次: <a href="_summary.html">第6章</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-バージョン html 0903<br>
-最終更新 2026-03-28 04:07:57 +0900
+バージョン html 0951<br>
+最終更新 2026-03-29 18:24:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>

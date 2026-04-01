@@ -7,8 +7,9 @@
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
 <meta name="author" content="株式会社チェンジビジョン">
-<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</title>
 <link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
@@ -17,16 +18,16 @@
 </head>
 <body id="_behavior_design" class="book toc2 toc-left">
 <div id="header">
-<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</h1>
 <div class="details">
 <span id="author" class="author">株式会社チェンジビジョン</span><br>
-<span id="revnumber">バージョン html 0903,</span>
-<span id="revdate">2026-03-29</span>
+<span id="revnumber">バージョン html 0951,</span>
+<span id="revdate">2026-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
-<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
-<li><a href="_まえがき.html">まえがき</a>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_preface.html">はじめに</a>
 </li>
 <li><a href="_copyright.html">注意事項</a>
 </li>
@@ -463,25 +464,25 @@ class Frame
     @spare_bonus = 0
     @strike_bonus = 0
     @total = 0
-    @state = :RESERVED # <b class="conum">(1)</b>
+    @state = :RESERVED <i class="conum" data-value="1"></i><b>(1)</b>
   end
 
   def action(event, pins=0)
-    case @state # <b class="conum">(2)</b>
+    case @state <i class="conum" data-value="2"></i><b>(2)</b>
     when :RESERVED
       case event
-      when :SETUP # <b class="conum">(3)</b>
+      when :SETUP <i class="conum" data-value="3"></i><b>(3)</b>
         @state = :BEFORE_1ST
       else
         puts "invalid event: #{event} is ignored."
       end
     when :BEFORE_1ST
-      before_1st_porc(event, pins) # <b class="conum">(4)</b>
+      before_1st_porc(event, pins) <i class="conum" data-value="4"></i><b>(4)</b>
     when :BEFORE_2ND
-      before_2nd_proc(event, pins) # <b class="conum">(5)</b>
+      before_2nd_proc(event, pins) <i class="conum" data-value="5"></i><b>(5)</b>
     when :PENDING
       case event
-      when :DETERMINE # <b class="conum">(6)</b>
+      when :DETERMINE <i class="conum" data-value="6"></i><b>(6)</b>
         @state = :FIXED
       end
     when :FIXED
@@ -492,26 +493,32 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>フレームの初期状態は「RESERVED」とする。状態はRubyのシンボルを使って表現する。</p>
-</li>
-<li>
-<p>状態に応じて処理を分ける。</p>
-</li>
-<li>
-<p>「RESERVED」状態では「SETUP」イベントを受け取り、「BEFORE_1ST」状態へ遷移する。他のイベントが来たら無視する。</p>
-</li>
-<li>
-<p>「BEFORE_1ST」状態では「PINS」イベントを待つ。詳細な処理は「before_1st_porc」メソッドに記載する。</p>
-</li>
-<li>
-<p>「BEFORE_2ND」状態では「PINS」イベントを待つ。詳細な処理は「before_2nd_porc」メソッドに記載する。</p>
-</li>
-<li>
-<p>「PENDING」状態では「DETERMINE」イベントを受け取り、「FIXED」状態へ遷移する。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>フレームの初期状態は「RESERVED」とする。状態はRubyのシンボルを使って表現する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>状態に応じて処理を分ける。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>「RESERVED」状態では「SETUP」イベントを受け取り、「BEFORE_1ST」状態へ遷移する。他のイベントが来たら無視する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>「BEFORE_1ST」状態では「PINS」イベントを待つ。詳細な処理は「before_1st_porc」メソッドに記載する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>「BEFORE_2ND」状態では「PINS」イベントを待つ。詳細な処理は「before_2nd_porc」メソッドに記載する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>「PENDING」状態では「DETERMINE」イベントを受け取り、「FIXED」状態へ遷移する。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>ガード条件やアクションのメソッドは、 <a href="_behavior_design.html#ruby_frame_code02">リスト 4.2</a> のようになるでしょう。</p>
@@ -527,11 +534,11 @@ require 'securerandom'
 class Frame
   # initialize、actionの定義がここにある
 
-  def frame_score # <b class="conum">(1)</b>
+  def frame_score <i class="conum" data-value="1"></i><b>(1)</b>
     @first + @second + @spare_bonus + @strike_bonus
   end
 
-  def strike? # <b class="conum">(2)</b>
+  def strike? <i class="conum" data-value="2"></i><b>(2)</b>
     @first == 10
   end
 
@@ -547,11 +554,11 @@ class Frame
     @first.zero
   end
 
-  def fixed? # <b class="conum">(3)</b>
+  def fixed? <i class="conum" data-value="3"></i><b>(3)</b>
     @state == :FIXED
   end
 
-  def to_s # <b class="conum">(4)</b>
+  def to_s <i class="conum" data-value="4"></i><b>(4)</b>
     total = if @state == :FIXED
               @total
             else
@@ -562,9 +569,9 @@ class Frame
            @spare_bonus, @strike_bonus, @state
   end
 
-  private # <b class="conum">(5)</b>
+  private <i class="conum" data-value="5"></i><b>(5)</b>
 
-  def before_1st_porc(evt, pins) # <b class="conum">(6)</b>
+  def before_1st_porc(evt, pins) <i class="conum" data-value="6"></i><b>(6)</b>
     case evt
     when :PINS
       puts "invalid pins: #{pins}" if pins.negative? || pins &gt; 10
@@ -580,7 +587,7 @@ class Frame
     end
   end
 
-  def before_2nd_proc(evt, pins) # <b class="conum">(7)</b>
+  def before_2nd_proc(evt, pins) <i class="conum" data-value="7"></i><b>(7)</b>
     case evt
     when :PINS
       puts "invalid pins: #{pins}" if pins.negative? || pins &gt; (10 - @first)
@@ -598,29 +605,36 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>フレームのスコアを計算するメソッド</p>
-</li>
-<li>
-<p>ストライクかどうか判定するガード条件用のメソッド。</p>
-</li>
-<li>
-<p>フレームのスコアが確定したか調べるメソッド。</p>
-</li>
-<li>
-<p>「Frame」クラスのインスタンスを文字列化するメソッド。呼び出し時点の「Frame」クラスが保持するインスタン変数の値を出力するのに使う。</p>
-</li>
-<li>
-<p>これ以降のメソッドはプライベート。</p>
-</li>
-<li>
-<p>「1投目の投球を待っている」状態を担当するメソッド。イベント「PINS」を受け取り、1投目のピン数に保存する。その後ストライクかどうか調べ、次の状態へ遷移する。</p>
-</li>
-<li>
-<p>「2投目の投球を待っている」状態を担当するメソッド。イベント「PINS」を受け取り、2投目のピン数に保存する。その後スペアかどうか調べ、次の状態へ遷移する。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>フレームのスコアを計算するメソッド</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>ストライクかどうか判定するガード条件用のメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>フレームのスコアが確定したか調べるメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>「Frame」クラスのインスタンスを文字列化するメソッド。呼び出し時点の「Frame」クラスが保持するインスタン変数の値を出力するのに使う。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>これ以降のメソッドはプライベート。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>「1投目の投球を待っている」状態を担当するメソッド。イベント「PINS」を受け取り、1投目のピン数に保存する。その後ストライクかどうか調べ、次の状態へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>「2投目の投球を待っている」状態を担当するメソッド。イベント「PINS」を受け取り、2投目のピン数に保存する。その後スペアかどうか調べ、次の状態へ遷移する。</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -910,7 +924,7 @@ end</code></pre>
 <table>
 <tr>
 <td class="icon">
-<div class="title">ヒント</div>
+<i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
 ノート内の文章を編集するときは、ノートを選択した状態でプロパティーを使って編集すると、改行が入力しやすくなります。
@@ -930,27 +944,27 @@ end</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="ruby"># frozen_string_literal: true
 
-require 'securerandom' # <b class="conum">(1)</b>
+require 'securerandom' <i class="conum" data-value="1"></i><b>(1)</b>
 
 # Frameクラスの定義がここにある
 
 # スコアは各人の10フレーム分のスコアを記録する
-class Score # <b class="conum">(2)</b>
+class Score <i class="conum" data-value="2"></i><b>(2)</b>
   attr_accessor :id, :player, :fno, :frames, :state
 
   def initialize(name)
-    @id = SecureRandom.urlsafe_base64(8) # <b class="conum">(3)</b>
+    @id = SecureRandom.urlsafe_base64(8) <i class="conum" data-value="3"></i><b>(3)</b>
     @player = name
     @fno = 1
     @frames = []
-    (-1..13).each do |fno| # (-1, 0) are dummy frame # <b class="conum">(4)</b>
+    (-1..13).each do |fno| # (-1, 0) are dummy frame <i class="conum" data-value="4"></i><b>(4)</b>
       @frames.append Frame.new(fno)
     end
-    @state = :WAIT_FOR_1ST # <b class="conum">(5)</b>
-    @frames[fno2idx(@fno)].action(:SETUP) # <b class="conum">(6)</b>
+    @state = :WAIT_FOR_1ST <i class="conum" data-value="5"></i><b>(5)</b>
+    @frames[fno2idx(@fno)].action(:SETUP) <i class="conum" data-value="6"></i><b>(6)</b>
   end
 
-  def fno2idx(fno) # <b class="conum">(7)</b>
+  def fno2idx(fno) <i class="conum" data-value="7"></i><b>(7)</b>
     fno + 1 # frame number 1 =&gt; array index 3 (0 origin).
   end
 
@@ -958,47 +972,56 @@ class Score # <b class="conum">(2)</b>
     @frames[fno2idx(fno)] # return index on @frams at frame number.
   end
 
-  def go_next_frame # <b class="conum">(8)</b>
+  def go_next_frame <i class="conum" data-value="8"></i><b>(8)</b>
     @fno += 1
     @frames[fno2idx(fno)].action(:SETUP)
   end
 
-  def current # <b class="conum">(9)</b>
+  def current <i class="conum" data-value="9"></i><b>(9)</b>
     frame(@fno)
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>安全なIDを生成するためのライブラリをインポートした。</p>
-</li>
-<li>
-<p>「Score」クラスの定義のはじまり。</p>
-</li>
-<li>
-<p>スコアのインスタンスにIDをつけておく。</p>
-</li>
-<li>
-<p>「Frame」のインスタンスの作成。クラス図では、「Score」から「Frame」へのコンポジションとして表されている部分。設計上は12個だが、サービスフレームで「次」を参照する場面、第1フレームで「前のフレーム」「前の前のフレーム」を参照する場面で参照するダミーのフレームを追加している。</p>
-</li>
-<li>
-<p>スコアの最初の状態を「WAIT_FOR_1ST」にする。</p>
-</li>
-<li>
-<p>第1フレームへ「SETUP」イベントを送る。</p>
-</li>
-<li>
-<p>フレーム番号とフレームの配列のインデックスを対応づけるメソッド（ダミーのフレームを第1フレームの前に追加したためのオフセット）。</p>
-</li>
-<li>
-<p>現在のフレームを「次のフレームへ進める」メソッド。このメソッドでは、次のフレームに「SETUP」イベントを送る。</p>
-</li>
-<li>
-<p>「現在のフレーム」を参照するためのメソッド。クラス図では関連端名が「current」の「Frame」クラスへの関連で表されている。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>安全なIDを生成するためのライブラリをインポートした。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>「Score」クラスの定義のはじまり。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>スコアのインスタンスにIDをつけておく。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>「Frame」のインスタンスの作成。クラス図では、「Score」から「Frame」へのコンポジションとして表されている部分。設計上は12個だが、サービスフレームで「次」を参照する場面、第1フレームで「前のフレーム」「前の前のフレーム」を参照する場面で参照するダミーのフレームを追加している。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>スコアの最初の状態を「WAIT_FOR_1ST」にする。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>第1フレームへ「SETUP」イベントを送る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>フレーム番号とフレームの配列のインデックスを対応づけるメソッド（ダミーのフレームを第1フレームの前に追加したためのオフセット）。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>現在のフレームを「次のフレームへ進める」メソッド。このメソッドでは、次のフレームに「SETUP」イベントを送る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>「現在のフレーム」を参照するためのメソッド。クラス図では関連端名が「current」の「Frame」クラスへの関連で表されている。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>ボーナス計算やトータル計算のメソッドは <a href="_behavior_design.html#ruby_score_code02">リスト 4.4</a> のようになるでしょう。</p>
@@ -1013,71 +1036,78 @@ class Score
   # アクセサーの定義がここにある
   # initialize、fno2idx、frame、go_next_frame、currentメソッドの定義がここにある
 
-  def prev # <b class="conum">(1)</b>
+  def prev <i class="conum" data-value="1"></i><b>(1)</b>
     frame(@fno - 1)
   end
 
-  def pprev # <b class="conum">(2)</b>
+  def pprev <i class="conum" data-value="2"></i><b>(2)</b>
     frame(@fno - 2)
   end
 
-  def calc_spare_bonus_after_1st # <b class="conum">(3)</b>
+  def calc_spare_bonus_after_1st <i class="conum" data-value="3"></i><b>(3)</b>
     return unless prev.spare?
 
     prev.spare_bonus = current.first
     prev.action(:DETERMINE)
   end
 
-  def calc_strike_bonus_after_1st # <b class="conum">(4)</b>
+  def calc_strike_bonus_after_1st <i class="conum" data-value="4"></i><b>(4)</b>
     return unless prev.strike? &amp;&amp; pprev.strike?
 
     pprev.strike_bonus = prev.first + current.first
     pprev.action(:DETERMINE)
   end
 
-  def calc_strike_bonus_after_2nd # <b class="conum">(5)</b>
+  def calc_strike_bonus_after_2nd <i class="conum" data-value="5"></i><b>(5)</b>
     return unless prev.strike?
 
     prev.strike_bonus = current.first + current.second
     prev.action(:DETERMINE)
   end
 
-  def update_total # <b class="conum">(6)</b>
+  def update_total <i class="conum" data-value="6"></i><b>(6)</b>
     @frames.each_cons(2) do |prev, cur|
       cur.total = prev.total + cur.frame_score
     end
   end
 
-  def finished? # <b class="conum">(7)</b>
+  def finished? <i class="conum" data-value="7"></i><b>(7)</b>
     frame(10).fixed?
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>ボーナス計算で使う、「前のフレーム」を得るメソッド。</p>
-</li>
-<li>
-<p>ボーナス計算で使う、「前の前のフレーム」を得るメソッド。</p>
-</li>
-<li>
-<p>1投目の後のスペアボーナスを計算するメソッド。前のフレームのスコアが確定するので、前のフレームへ「DETERMINE」イベントを送る。</p>
-</li>
-<li>
-<p>1投目の後のストライクボーナスを計算するメソッド。前の前のフレームからストライクが続いていた場合、ここでスコアが確定するので、前の前のフレームへ「DETERMINE」イベントを送る。</p>
-</li>
-<li>
-<p>2投目の後のストライクボーナスを計算するメソッド。前のフレームのスコアが確定するので、前のフレームへ「DETERMINE」イベントを送る。</p>
-</li>
-<li>
-<p>「のべのトータル」を更新するメソッド。each_consは、配列から指定した数ずつ要素を取り出すメソッド。</p>
-</li>
-<li>
-<p>「ゲーム終了」の判定用のメソッド。サービスフレームの検討結果から、第10フレームが「FIXED」になれば、そのゲームは終了とみなせる。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>ボーナス計算で使う、「前のフレーム」を得るメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>ボーナス計算で使う、「前の前のフレーム」を得るメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>1投目の後のスペアボーナスを計算するメソッド。前のフレームのスコアが確定するので、前のフレームへ「DETERMINE」イベントを送る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>1投目の後のストライクボーナスを計算するメソッド。前の前のフレームからストライクが続いていた場合、ここでスコアが確定するので、前の前のフレームへ「DETERMINE」イベントを送る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>2投目の後のストライクボーナスを計算するメソッド。前のフレームのスコアが確定するので、前のフレームへ「DETERMINE」イベントを送る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>「のべのトータル」を更新するメソッド。each_consは、配列から指定した数ずつ要素を取り出すメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>「ゲーム終了」の判定用のメソッド。サービスフレームの検討結果から、第10フレームが「FIXED」になれば、そのゲームは終了とみなせる。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>そして、ステートマシン図で表した、実際にゲームの進行に合わせてスコアを記録する処理をするメソッドは <a href="_behavior_design.html#ruby_score_code03">リスト 4.5</a> のようになるでしょう。</p>
@@ -1092,34 +1122,34 @@ class Score
   # アクセサーの定義がここにある
   # initializeからfinished?までのメソッドの定義がここにある
 
-  def wait_for_1st_proc(pins) # <b class="conum">(1)</b>
-    current.action(:PINS, pins) # <b class="conum">(2)</b>
+  def wait_for_1st_proc(pins) <i class="conum" data-value="1"></i><b>(1)</b>
+    current.action(:PINS, pins) <i class="conum" data-value="2"></i><b>(2)</b>
     calc_spare_bonus_after_1st
     calc_strike_bonus_after_1st
     update_total
-    if finished? # <b class="conum">(3)</b>
+    if finished? <i class="conum" data-value="3"></i><b>(3)</b>
       @state = :FINISHED
-    elsif current.strike? # <b class="conum">(4)</b>
+    elsif current.strike? <i class="conum" data-value="4"></i><b>(4)</b>
       @state = :WAIT_FOR_1ST
       go_next_frame
-    else # <b class="conum">(5)</b>
+    else <i class="conum" data-value="5"></i><b>(5)</b>
       @state = :WAIT_FOR_2ND
     end
   end
 
-  def wait_for_2nd_proc(pins) # <b class="conum">(6)</b>
-    current.action(:PINS, pins) # <b class="conum">(7)</b>
+  def wait_for_2nd_proc(pins) <i class="conum" data-value="6"></i><b>(6)</b>
+    current.action(:PINS, pins) <i class="conum" data-value="7"></i><b>(7)</b>
     calc_strike_bonus_after_2nd
     update_total
-    if finished? # <b class="conum">(8)</b>
+    if finished? <i class="conum" data-value="8"></i><b>(8)</b>
       @state = :FINISHED
-    else # <b class="conum">(9)</b>
+    else <i class="conum" data-value="9"></i><b>(9)</b>
       @state = :WAIT_FOR_1ST
       go_next_frame
     end
   end
 
-  def scoring(pins) # <b class="conum">(10)</b>
+  def scoring(pins) <i class="conum" data-value="10"></i><b>(10)</b>
     case @state
     when :WAIT_FOR_1ST
       wait_for_1st_proc(pins)
@@ -1130,7 +1160,7 @@ class Score
     end
   end
 
-  def to_s # <b class="conum">(11)</b>
+  def to_s <i class="conum" data-value="11"></i><b>(11)</b>
     "Player:#{@player}, Score(id: #{@id}), Frame:#{@fno},
 |No|1st|2nd|Total|Frame Score|Spare Bonus|Strike Bonus|Frame State|
 #{@frames.join("\n")}"
@@ -1139,41 +1169,52 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>「WAIT_FOR_1ST」状態のときの状態遷移のメソッド。</p>
-</li>
-<li>
-<p>現在のフレームについて、ピン数を更新し、ボーナスを計算し、のべのトータルを更新する。</p>
-</li>
-<li>
-<p>「選択疑似状態」での遷移先の分岐処理。「ゲーム終了」の場合は「FINISHED」へ遷移する。</p>
-</li>
-<li>
-<p>「ストライクだった」の場合は、次のフレームへ進んで「WAIT_FOR_1ST」へ遷移する。</p>
-</li>
-<li>
-<p>それ以外のときは2投目を待つので、「WAIT_FOR_2ND」へ遷移する。</p>
-</li>
-<li>
-<p>「WAIT_FOR_2ND」状態のときの状態遷移のメソッド。</p>
-</li>
-<li>
-<p>現在のフレームについて、ピン数を更新し、ボーナスを計算し、のべのトータルを更新する。</p>
-</li>
-<li>
-<p>「選択疑似状態」での遷移先の分岐処理。「ゲーム終了」の場合は「FINISHED」へ遷移する。</p>
-</li>
-<li>
-<p>それ以外のときは、次のフレームへ進んで「WAIT_FOR_1ST」へ遷移する。</p>
-</li>
-<li>
-<p>スコアを記録するステートマシン図の振る舞いを担当するメソッド。状態に応じてそれぞれの状態用のメソッドを呼び出す。</p>
-</li>
-<li>
-<p>「スコア」クラスのインスタンスの内容（内包するフレームも含む）を文字列化するメソッド。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>「WAIT_FOR_1ST」状態のときの状態遷移のメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>現在のフレームについて、ピン数を更新し、ボーナスを計算し、のべのトータルを更新する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>「選択疑似状態」での遷移先の分岐処理。「ゲーム終了」の場合は「FINISHED」へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>「ストライクだった」の場合は、次のフレームへ進んで「WAIT_FOR_1ST」へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>それ以外のときは2投目を待つので、「WAIT_FOR_2ND」へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>「WAIT_FOR_2ND」状態のときの状態遷移のメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>現在のフレームについて、ピン数を更新し、ボーナスを計算し、のべのトータルを更新する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>「選択疑似状態」での遷移先の分岐処理。「ゲーム終了」の場合は「FINISHED」へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>それ以外のときは、次のフレームへ進んで「WAIT_FOR_1ST」へ遷移する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>スコアを記録するステートマシン図の振る舞いを担当するメソッド。状態に応じてそれぞれの状態用のメソッドを呼び出す。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>「スコア」クラスのインスタンスの内容（内包するフレームも含む）を文字列化するメソッド。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>これで、フレームとスコアを、それぞれのステートマシン図で表した振る舞いに合わせて動作するプログラムに変換できました。</p>
@@ -1239,72 +1280,81 @@ class Game
   attr_reader :id, :turn, :scores
 
   def initialize
-    @id = SecureRandom.urlsafe_base64(8) # <b class="conum">(1)</b>
+    @id = SecureRandom.urlsafe_base64(8) <i class="conum" data-value="1"></i><b>(1)</b>
     @turn = 0
     @scores = []
   end
 
-  def entry(name = 'unknown') # <b class="conum">(2)</b>
+  def entry(name = 'unknown') <i class="conum" data-value="2"></i><b>(2)</b>
     @scores.append(Score.new(name))
   end
 
-  def turn_player_name # <b class="conum">(3)</b>
+  def turn_player_name <i class="conum" data-value="3"></i><b>(3)</b>
     @scores[@turn].player
   end
 
-  def go_next_turn # <b class="conum">(4)</b>
+  def go_next_turn <i class="conum" data-value="4"></i><b>(4)</b>
     @turn = (@turn + 1) % @scores.size
   end
 
-  def playing(score_index, pins) # <b class="conum">(5)</b>
+  def playing(score_index, pins) <i class="conum" data-value="5"></i><b>(5)</b>
     @scores[score_index].scoring(pins)
-    if @scores[score_index].fno &gt; 10 # <b class="conum">(6)</b>
+    if @scores[score_index].fno &gt; 10 <i class="conum" data-value="6"></i><b>(6)</b>
       go_next_turn if @scores[score_index].finished?
-    elsif @scores[score_index].current.state == :BEFORE_1ST # <b class="conum">(7)</b>
+    elsif @scores[score_index].current.state == :BEFORE_1ST <i class="conum" data-value="7"></i><b>(7)</b>
       go_next_turn
     end
   end
 
-  def finished? # <b class="conum">(8)</b>
+  def finished? <i class="conum" data-value="8"></i><b>(8)</b>
     @scores.reject(&amp;:finished?) == []
   end
 
-  def to_s # <b class="conum">(9)</b>
+  def to_s <i class="conum" data-value="9"></i><b>(9)</b>
     "Game(id:#{@id}),\n#{@scores.join("\n")}"
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>ゲームごとにユニークなIDをつけておく。</p>
-</li>
-<li>
-<p>ゲームに参加するプレーヤーを登録するメソッド。そのプレーヤーの今回のゲーム分のスコアも用意する。</p>
-</li>
-<li>
-<p>現在プレー中のプレーヤー名を取得するメソッド。</p>
-</li>
-<li>
-<p>次のプレーヤーに交代するメソッド。登録したプレーヤーの順に進み、最後まで来たら最初のプレーヤーへ戻る。</p>
-</li>
-<li>
-<p>ゲームを実行するメソッド。現在のプレーヤーのスコアクラスのscoring メソッドを呼び出して1フレーム分のプレーを記録する。</p>
-</li>
-<li>
-<p>サービスフレームでは、2フレーム以上プレーする場合があるので、そのときは交代しない。</p>
-</li>
-<li>
-<p>現在のプレーヤーの現在の状態が「BEFORE_1ST」なら、次のフレームの投球待ちになっているので、プレーヤーを交代する。</p>
-</li>
-<li>
-<p>すべてのプレーヤーがゲーム終了かどうか調べるメソッド。</p>
-</li>
-<li>
-<p>ゲームの状況を文字列化するメソッド。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>ゲームごとにユニークなIDをつけておく。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>ゲームに参加するプレーヤーを登録するメソッド。そのプレーヤーの今回のゲーム分のスコアも用意する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>現在プレー中のプレーヤー名を取得するメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>次のプレーヤーに交代するメソッド。登録したプレーヤーの順に進み、最後まで来たら最初のプレーヤーへ戻る。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>ゲームを実行するメソッド。現在のプレーヤーのスコアクラスのscoring メソッドを呼び出して1フレーム分のプレーを記録する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>サービスフレームでは、2フレーム以上プレーする場合があるので、そのときは交代しない。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>現在のプレーヤーの現在の状態が「BEFORE_1ST」なら、次のフレームの投球待ちになっているので、プレーヤーを交代する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>すべてのプレーヤーがゲーム終了かどうか調べるメソッド。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>ゲームの状況を文字列化するメソッド。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>クラス図にもこの結果を反映しておきましょう（ <a href="_behavior_design.html#update_class_for_game_score00">図 4.22</a> ）。
@@ -1335,39 +1385,43 @@ end</code></pre>
 class ScoreSheet
   attr_accessor :id, :time, :games
 
-  def initialize(date) # <b class="conum">(1)</b>
-    @id = SecureRandom.urlsafe_base64(8) # <b class="conum">(2)</b>
+  def initialize(date) <i class="conum" data-value="1"></i><b>(1)</b>
+    @id = SecureRandom.urlsafe_base64(8) <i class="conum" data-value="2"></i><b>(2)</b>
     @play_date = date
     @games = []
   end
 
-  def add_game(games = 1) # <b class="conum">(3)</b>
+  def add_game(games = 1) <i class="conum" data-value="3"></i><b>(3)</b>
     games.times do
       @games.append(Game.new)
     end
   end
 
-  def to_s # <b class="conum">(4)</b>
+  def to_s <i class="conum" data-value="4"></i><b>(4)</b>
     "Score Sheet Date: #{@time}(id:#{@id})"
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>スコアシートを作成するときは、作成時の日時を控えておく。</p>
-</li>
-<li>
-<p>スコアシートごとにユニークなIDをつけておく。</p>
-</li>
-<li>
-<p>希望する数のゲームをシートに追加するメソッド。引数がないときは1組だけ追加する。</p>
-</li>
-<li>
-<p>スコアシートの状況を文字列化するメソッド。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>スコアシートを作成するときは、作成時の日時を控えておく。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>スコアシートごとにユニークなIDをつけておく。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>希望する数のゲームをシートに追加するメソッド。引数がないときは1組だけ追加する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>スコアシートの状況を文字列化するメソッド。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>クラス図にもこの結果を反映しておきましょう（ <a href="_behavior_design.html#update_class_for_scoresheet00">図 4.23</a> ）。
@@ -1489,13 +1543,13 @@ end</code></pre>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← 前: <a href="_model_to_code_design.html">第3章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a> | 次: <a href="_program_test.html">第5章</a> →</p>
+<p>← 前: <a href="_model_to_code_design.html">第3章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a> | 次: <a href="_program_test.html">第5章</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-バージョン html 0903<br>
-最終更新 2026-03-28 04:07:57 +0900
+バージョン html 0951<br>
+最終更新 2026-03-29 18:24:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>

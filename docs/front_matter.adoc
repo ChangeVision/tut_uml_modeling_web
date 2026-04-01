@@ -6,7 +6,7 @@
 :author: 株式会社チェンジビジョン
 :organization: チェンジビジョン
 :orgurl: https://www.change-vision.com/
-:doctitle: モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）
+:doctitle: モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）
 :authorinitials: CV
 :description: この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。
 // revnumberは別途、文書に応じて revnumber.adocを読み込む
@@ -19,7 +19,7 @@
 :stylesdir: css
 :stylesheet: mystyle.css
 :imagesdir: images
-:sourcesdir: codes
+:sourcesdir: ../codes
 :title-logo-image: image::ChangeVision_Logo.svg[pdfwidth=2.0in,align=left,top=3%]
 
 :pdf-theme: ./theme/pdf/mystyle-theme.yml
@@ -28,8 +28,6 @@
 // :pdf-theme: ./theme/pdf/default-with-font-fallbacks-theme.yml
 // :pdf-theme: ./theme/pdf/cjk-theme.yml
 :pdf-fontsdir: ./fonts;GEM_FONTS_DIR
-:imagesdir: images
-:sourcesdir: ../codes
 
 :stem:
 :sectanchors:
@@ -44,7 +42,7 @@ ifdef::backend-pdf[]
 :icontype: svg
 endif::[]
 
-ifdef::backend-html5[]
+ifdef::backend-html5,backend-multipage_html5[]
 :icons: font
 :icon-set: fa
 endif::[]

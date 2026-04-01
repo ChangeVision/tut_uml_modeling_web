@@ -7,8 +7,9 @@
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
 <meta name="author" content="株式会社チェンジビジョン">
-<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</title>
 <link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
@@ -17,16 +18,16 @@
 </head>
 <body id="_bibliography" class="book toc2 toc-left">
 <div id="header">
-<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</h1>
 <div class="details">
 <span id="author" class="author">株式会社チェンジビジョン</span><br>
-<span id="revnumber">バージョン html 0903,</span>
-<span id="revdate">2026-03-29</span>
+<span id="revnumber">バージョン html 0951,</span>
+<span id="revdate">2026-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
-<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
-<li><a href="_まえがき.html">まえがき</a>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_preface.html">はじめに</a>
 </li>
 <li><a href="_copyright.html">注意事項</a>
 </li>
@@ -52,7 +53,7 @@
 </li>
 <li><a href="_bibliography.html#_オブジェクト指向設計">オブジェクト指向設計</a>
 </li>
-<li><a href="_bibliography.html#_ruby">Ruby</a>
+<li><a href="_bibliography.html#_ruby_2">Ruby</a>
 </li>
 <li><a href="_bibliography.html#_webアプリケーション開発">Webアプリケーション開発</a>
 </li>
@@ -101,7 +102,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ruby"><a class="anchor" href="#_ruby"></a>Ruby</h3>
+<h3 id="_ruby_2"><a class="anchor" href="#_ruby_2"></a>Ruby</h3>
 <div class="ulist bibliography">
 <ul class="bibliography">
 <li>
@@ -112,6 +113,12 @@
 </li>
 <li>
 <p><a id="ruby-website"></a>[ruby-website] Ruby公式サイト, <a href="https://www.ruby-lang.org/ja/" class="bare">https://www.ruby-lang.org/ja/</a></p>
+</li>
+<li>
+<p><a id="ruby-fol"></a>[ruby-fol] 他言語からのRuby入門,  <code><a href="https://www.ruby-lang.org/ja/documentation/ruby-from-other-languages/" class="bare">https://www.ruby-lang.org/ja/documentation/ruby-from-other-languages/</a></code></p>
+</li>
+<li>
+<p><a id="ruby-qs"></a>[ruby-qs] 20分ではじめるRuby, <code><a href="https://www.ruby-lang.org/ja/documentation/quickstart/" class="bare">https://www.ruby-lang.org/ja/documentation/quickstart/</a></code></p>
 </li>
 </ul>
 </div>
@@ -173,11 +180,11 @@
 <div style="page-break-after: always;"></div>
 <hr>
 <div class="paragraph">
-<p>「モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）」</p>
+<p>「モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）」</p>
 </div>
 <div class="paragraph">
-<p>発行日 : 2026-03-29<br>
-バージョン : html 0903<br>
+<p>発行日 : 2026-04-01<br>
+バージョン : html 0951<br>
 作成者 : 株式会社チェンジビジョン<br>
 本書の内容に関する質問等がありましたら、作成者までお知らせください。</p>
 </div>
@@ -185,13 +192,13 @@
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← 前: <a href="_appendix-01.html">AppendixA</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></p>
+<p>← 前: <a href="_appendix-01.html">AppendixA</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-バージョン html 0903<br>
-最終更新 2026-03-28 04:07:57 +0900
+バージョン html 0951<br>
+最終更新 2026-03-29 18:24:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>

@@ -7,8 +7,9 @@
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
 <meta name="author" content="株式会社チェンジビジョン">
-<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</title>
 <link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
@@ -17,16 +18,16 @@
 </head>
 <body id="_model_to_code_design" class="book toc2 toc-left">
 <div id="header">
-<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</h1>
 <div class="details">
 <span id="author" class="author">株式会社チェンジビジョン</span><br>
-<span id="revnumber">バージョン html 0903,</span>
-<span id="revdate">2026-03-29</span>
+<span id="revnumber">バージョン html 0951,</span>
+<span id="revdate">2026-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
-<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
-<li><a href="_まえがき.html">まえがき</a>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_preface.html">はじめに</a>
 </li>
 <li><a href="_copyright.html">注意事項</a>
 </li>
@@ -84,7 +85,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">ヒント</div>
+<i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
 このような対応づけを「モデル変換ルール」と呼ぶこともあります。また、開発プロセスのなかでこの対応づけを検討する工程を「方式設計」と呼ぶ人もいます。
@@ -147,7 +148,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 「モデル駆動開発（MDD）」という開発手法に、「モデル・タイプマッピング」と呼ばれる、2つのモデルの間の対応づけについての考え方があります。モデルとコードの対応づけは、タイプマッピングの一種とみなすこともできます。
@@ -161,6 +162,28 @@
 <div class="paragraph">
 <p>このチュートリアルでは、実装にRubyを使うことにしました。
 そのために、対応づけの検討においても、設計モデルとRubypの対応づけを考えてみることにします。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="注記"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>同じモデルからC言語でコマンドラインアプリケーションを実装するチュートリアルもあります。</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">モデルを使ってソフトウェアを開発しよう（C言語版）</dt>
+<dd>
+<p><a href="https://github.com/ChangeVision/tut_uml_modeling_bs_c/" class="bare">https://github.com/ChangeVision/tut_uml_modeling_bs_c/</a></p>
+</dd>
+</dl>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_対応づけ検討用プロジェクトを用意する"><a class="anchor" href="#_対応づけ検討用プロジェクトを用意する"></a>3.2.1. 対応づけ検討用プロジェクトを用意する</h4>
@@ -179,6 +202,31 @@
 </li>
 <li>
 <p>モデルファイルの名前は「stm_sample.asta」とする。</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="stm_sample_project_setting"><a class="anchor" href="#stm_sample_project_setting"></a>プロジェクトの設定</h5>
+<div class="paragraph">
+<p>実装はRubyを使うので、プロジェクトで使う言語情報を「cxx」に変更しておきます。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>構造ツリーで、プロジェクト名をクリックして選択する。</p>
+</li>
+<li>
+<p>プロパティーから「プロジェクトの設定」タブを開く。</p>
+</li>
+<li>
+<p>プログラミング言語のチェックボックスから「cxx」をチエックする。</p>
+</li>
+<li>
+<p>確認ダイアログ「プロジェクトに言語情報を適用しますか？」で「はい」をクリックする。</p>
+</li>
+<li>
+<p>「Java」「C＃」など他の言語の項目のチェックは外しておく。</p>
 </li>
 </ul>
 </div>
@@ -278,32 +326,36 @@
 <div id="ruby_sample01" class="listingblock">
 <div class="title">リスト 3.1 【Ruby】「Sample」クラスを表すRubyのコード</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="ruby">class Sample # <b class="conum">(1)</b>
-  def initialize # <b class="conum">(2)</b>
-    @attr_a = true # <b class="conum">(3)</b>
-    @attr_b = true # <b class="conum">(3)</b>
+<pre class="prettyprint highlight"><code data-lang="ruby">class Sample <i class="conum" data-value="1"></i><b>(1)</b>
+  def initialize <i class="conum" data-value="2"></i><b>(2)</b>
+    @attr_a = true <i class="conum" data-value="3"></i><b>(3)</b>
+    @attr_b = true <i class="conum" data-value="3"></i><b>(3)</b>
   end
 
-  def play # <b class="conum">(4)</b>
+  def play <i class="conum" data-value="4"></i><b>(4)</b>
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>クラス「Sample」の定義の始まり</p>
-</li>
-<li>
-<p>初期化メソッド（コンストラクタにあたるメソッド）</p>
-</li>
-<li>
-<p>このクラスのインスタンス変数</p>
-</li>
-<li>
-<p>メソッド「play」の定義の始まり</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>クラス「Sample」の定義の始まり</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>初期化メソッド（コンストラクタにあたるメソッド）</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>このクラスのインスタンス変数</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>メソッド「play」の定義の始まり</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -362,7 +414,7 @@ end</code></pre>
 <table>
 <tr>
 <td class="icon">
-<div class="title">ヒント</div>
+<i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -477,7 +529,7 @@ end</code></pre>
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -836,7 +888,7 @@ end</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="ruby">class Sample
   def initialize
-    @state = :ST0 # <b class="conum">(1)</b>
+    @state = :ST0 <i class="conum" data-value="1"></i><b>(1)</b>
     @attr_a = true
     @attr_b = true
   end
@@ -847,17 +899,18 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>現在の状態を保持する変数を用意し、 <code>ST0</code> を初期状態とする。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>現在の状態を保持する変数を用意し、 <code>ST0</code> を初期状態とする。</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock note">
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 「 <code>:ST0</code> 」は、Rubyにおける名前付きの数値定数の表記で、シンボルと呼ばれています。
@@ -881,43 +934,49 @@ end</code></pre>
   end
 
   def play(evt, param)
-    puts "#{@state} -&gt;" # <b class="conum">(1)</b>
-    puts "  event:#{evt}, param: #{param}" # <b class="conum">(2)</b>
-    case @state # <b class="conum">(3)</b>
+    puts "#{@state} -&gt;" <i class="conum" data-value="1"></i><b>(1)</b>
+    puts "  event:#{evt}, param: #{param}" <i class="conum" data-value="2"></i><b>(2)</b>
+    case @state <i class="conum" data-value="3"></i><b>(3)</b>
     when :ST0
-      st0_proc(evt, param) # <b class="conum">(4)</b>
+      st0_proc(evt, param) <i class="conum" data-value="4"></i><b>(4)</b>
     when :ST1
       st1_proc(evt, param)
     when :ST2
       # none
     end
-    puts "       -&gt; #{@state}" # <b class="conum">(5)</b>
-    puts 'finished.' if @state == :ST2 # <b class="conum">(6)</b>
+    puts "       -&gt; #{@state}" <i class="conum" data-value="5"></i><b>(5)</b>
+    puts 'finished.' if @state == :ST2 <i class="conum" data-value="6"></i><b>(6)</b>
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>遷移前の状態を表示する。</p>
-</li>
-<li>
-<p>イベントとパラメーターを表示する。</p>
-</li>
-<li>
-<p>状態ごとの処理を case文を使って分岐する。</p>
-</li>
-<li>
-<p>状態ごとの詳細な処理を担当するメソッドを呼び出す（ここでは <code>st0_proc</code> ） 。</p>
-</li>
-<li>
-<p>遷移後の状態を表示する。</p>
-</li>
-<li>
-<p>終了状態になったことを知らせる。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>遷移前の状態を表示する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>イベントとパラメーターを表示する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>状態ごとの処理を case文を使って分岐する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>状態ごとの詳細な処理を担当するメソッドを呼び出す（ここでは <code>st0_proc</code> ） 。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>遷移後の状態を表示する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>終了状態になったことを知らせる。</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -941,28 +1000,31 @@ Rubyでは、真偽値を返すメソッドには「 <code>?</code> 」をつけ
     # 略
   end
 
-  def gd1? # <b class="conum">(1)</b>
-    @attr_a &amp;&amp; @attr_b # <b class="conum">(2)</b>
+  def gd1? <i class="conum" data-value="1"></i><b>(1)</b>
+    @attr_a &amp;&amp; @attr_b <i class="conum" data-value="2"></i><b>(2)</b>
   end
 
-  def gd2? # <b class="conum">(3)</b>
+  def gd2? <i class="conum" data-value="3"></i><b>(3)</b>
     !@attr_a || @attr_b
   end
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>「gd1」用のメソッド。真偽値を返すメソッドに「?」をつけるRubyの習慣に倣った。</p>
-</li>
-<li>
-<p>属性値を使った条件式の例。</p>
-</li>
-<li>
-<p>「gd2」用のメソッド。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>「gd1」用のメソッド。真偽値を返すメソッドに「?」をつけるRubyの習慣に倣った。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>属性値を使った条件式の例。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>「gd2」用のメソッド。</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -985,16 +1047,16 @@ end</code></pre>
   end
 
   def st0_proc(evt, param)
-    case evt # <b class="conum">(1)</b>
-    when :ev1 # <b class="conum">(2)</b>
-      if gd1? # <b class="conum">(3)</b>
+    case evt <i class="conum" data-value="1"></i><b>(1)</b>
+    when :ev1 <i class="conum" data-value="2"></i><b>(2)</b>
+      if gd1? <i class="conum" data-value="3"></i><b>(3)</b>
         puts "    gd1: #{gd1?}"
-        act1(evt, param) # <b class="conum">(4)</b>
-        @state = :ST1 # <b class="conum">(5)</b>
-      else # <b class="conum">(6)</b>
+        act1(evt, param) <i class="conum" data-value="4"></i><b>(4)</b>
+        @state = :ST1 <i class="conum" data-value="5"></i><b>(5)</b>
+      else <i class="conum" data-value="6"></i><b>(6)</b>
         puts "    &lt;&lt;&lt; gd1: #{gd1?}, transition is ignored. &gt;&gt;&gt;"
       end
-    when :ev3 # <b class="conum">(7)</b>
+    when :ev3 <i class="conum" data-value="7"></i><b>(7)</b>
       act3(evt, param)
       @state = :ST2
     end
@@ -1005,29 +1067,36 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>イベントで場合分けする。</p>
-</li>
-<li>
-<p>イベントが「ev1」の場合。イベントはRubyのシンボルを使って表す。</p>
-</li>
-<li>
-<p>ガード条件による判定。</p>
-</li>
-<li>
-<p>アクション「act1」の呼び出し。</p>
-</li>
-<li>
-<p>次の状態「ST1」への遷移。</p>
-</li>
-<li>
-<p>ガード条件が偽だったとき。イベントが無視されたことを表示する。</p>
-</li>
-<li>
-<p>イベントが「ev3」の場合。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>イベントで場合分けする。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>イベントが「ev1」の場合。イベントはRubyのシンボルを使って表す。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>ガード条件による判定。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>アクション「act1」の呼び出し。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>次の状態「ST1」への遷移。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>ガード条件が偽だったとき。イベントが無視されたことを表示する。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>イベントが「ev3」の場合。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>改めて、この部分のRubyのコードとステートマシン図の対応を図で確認してみましょう（ <a href="_model_to_code_design.html#ruby_sample066">図 3.21</a> ）。</p>
@@ -1062,16 +1131,16 @@ end</code></pre>
 
   def st1_proc(evt, param)
     case evt
-    when :ev2 # <b class="conum">(1)</b>
-      act2(evt, param) # <b class="conum">(2)</b>
+    when :ev2 <i class="conum" data-value="1"></i><b>(1)</b>
+      act2(evt, param) <i class="conum" data-value="2"></i><b>(2)</b>
       puts "    gd2: #{gd2?}"
-      if gd2? # <b class="conum">(3)</b>
-        @state = :ST2 # <b class="conum">(4)</b>
+      if gd2? <i class="conum" data-value="3"></i><b>(3)</b>
+        @state = :ST2 <i class="conum" data-value="4"></i><b>(4)</b>
       else
-        act3(evt, param) # <b class="conum">(5)</b>
-        @state = :ST0 # <b class="conum">(6)</b>
+        act3(evt, param) <i class="conum" data-value="5"></i><b>(5)</b>
+        @state = :ST0 <i class="conum" data-value="6"></i><b>(6)</b>
       end
-    when :ev3 # <b class="conum">(7)</b>
+    when :ev3 <i class="conum" data-value="7"></i><b>(7)</b>
       act3(evt, param)
       @state = :ST0
     end
@@ -1082,29 +1151,36 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>イベントが「ev2」の場合。</p>
-</li>
-<li>
-<p>アクション「act2」の呼び出し。</p>
-</li>
-<li>
-<p>選択疑似状態におけるガード条件による判定。</p>
-</li>
-<li>
-<p>次の状態「ST2」への遷移。</p>
-</li>
-<li>
-<p>選択疑似状態からの遷移におけるアクション「act3」の呼び出し。</p>
-</li>
-<li>
-<p>次の状態「ST0」への遷移。</p>
-</li>
-<li>
-<p>イベントが「ev3」の場合。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>イベントが「ev2」の場合。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>アクション「act2」の呼び出し。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>選択疑似状態におけるガード条件による判定。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>次の状態「ST2」への遷移。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>選択疑似状態からの遷移におけるアクション「act3」の呼び出し。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>次の状態「ST0」への遷移。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>イベントが「ev3」の場合。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>この部分のRubyのコードとステートマシン図の対応を図で表してみましょう（ <a href="_model_to_code_design.html#ruby_sample08">図 3.22</a> ）。</p>
@@ -1153,7 +1229,7 @@ Rubyでは、「private」キーワードを追加してその後に非公開の
 <pre class="prettyprint highlight"><code data-lang="ruby">class Sample
   # initialize、play、st0_proc、st1_proc の定義を省略
 
-  praivate # <b class="conum">(1)</b>
+  praivate <i class="conum" data-value="1"></i><b>(1)</b>
 
   def act1(evt, prm)
     puts "     act1: event:#{evt}, param: #{prm}"
@@ -1167,7 +1243,7 @@ Rubyでは、「private」キーワードを追加してその後に非公開の
     puts "     act3: event:#{evt}, param: #{prm}"
   end
 
-  def gd1? # <b class="conum">(2)</b>
+  def gd1? <i class="conum" data-value="2"></i><b>(2)</b>
     @attr_a &amp;&amp; @attr_b
   end
 
@@ -1178,14 +1254,16 @@ end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>この宣言以降のメソッドは、可視性が「private」なメソッドになる。</p>
-</li>
-<li>
-<p>ガード条件の判定用メソッドも「private」なメソッドに含めた。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>この宣言以降のメソッドは、可視性が「private」なメソッドになる。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>ガード条件の判定用メソッドも「private」なメソッドに含めた。</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>これで、ステートマシン図で表したクラスの振る舞いをRubyのコードに対応づけられました。</p>
@@ -1298,11 +1376,11 @@ end</code></pre>
 <div id="ruby_sample_code01" class="listingblock">
 <div class="title">リスト 3.8 【Ruby】<code>stm_sample.rb</code></div>
 <div class="content">
-<pre class="prettyprint highlight linenums"><code data-lang="ruby"># frozen_string_literal: true # <b class="conum">(1)</b>
+<pre class="prettyprint highlight linenums"><code data-lang="ruby"># frozen_string_literal: true <i class="conum" data-value="1"></i><b>(1)</b>
 
 # ステートマシン図とコードの対応づけルールの検討用クラス
 class Sample
-  attr_accessor :attr_a, :attr_b # <b class="conum">(2)</b>
+  attr_accessor :attr_a, :attr_b <i class="conum" data-value="2"></i><b>(2)</b>
 
   def initialize
     @state = :ST0
@@ -1382,7 +1460,7 @@ class Sample
 end
 
 # 検討用クラスのテストケースを提供するクラス
-class SampleTest # <b class="conum">(3)</b>
+class SampleTest <i class="conum" data-value="3"></i><b>(3)</b>
   def test_base(events, data)
     samp01 = Sample.new
     samp01.attr_a = data[0]
@@ -1412,27 +1490,31 @@ class SampleTest # <b class="conum">(3)</b>
   end
 end
 
-if $PROGRAM_NAME == __FILE__ # <b class="conum">(4)</b>
+if $PROGRAM_NAME == __FILE__ <i class="conum" data-value="4"></i><b>(4)</b>
   test = SampleTest.new
   test.run
 end</code></pre>
 </div>
 </div>
 <div class="colist arabic">
-<ol>
-<li>
-<p>文字列の破壊的変更の検出を指示するマジックコメント。</p>
-</li>
-<li>
-<p>簡便にテストするために、アクセサーを追加した（あくまでこのサンプルにおける便宜として）。</p>
-</li>
-<li>
-<p>Sampleクラスのメソッドを呼び出すテストを定義したテスト用のクラスの定義。</p>
-</li>
-<li>
-<p>テスト用クラスを実行するコード。このブロックはファイル名と実行プログラム名が一致するときに有効になる（そのときだけ実行される）。</p>
-</li>
-</ol>
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>文字列の破壊的変更の検出を指示するマジックコメント。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>簡便にテストするために、アクセサーを追加した（あくまでこのサンプルにおける便宜として）。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Sampleクラスのメソッドを呼び出すテストを定義したテスト用のクラスの定義。</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>テスト用クラスを実行するコード。このブロックはファイル名と実行プログラム名が一致するときに有効になる（そのときだけ実行される）。</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -1550,13 +1632,13 @@ C:\Users\kuboaki\Desktop\BowlingScore&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← 前: <a href="_structure_design.html">第2章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a> | 次: <a href="_behavior_design.html">第4章</a> →</p>
+<p>← 前: <a href="_structure_design.html">第2章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a> | 次: <a href="_behavior_design.html">第4章</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-バージョン html 0903<br>
-最終更新 2026-03-28 04:07:57 +0900
+バージョン html 0951<br>
+最終更新 2026-03-29 18:24:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>

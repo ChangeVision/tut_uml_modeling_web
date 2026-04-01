@@ -1,44 +1,69 @@
 # -*- coding: utf-8 -*- #
-extends: default
+# Asciidoctor-pdfが提供しているテーマのひとつをベースにする（記載されている項目が暗黙に継承されていることに注意）
+extends: default-sans
+
+# Rubyのシンボルではハイフンが使えないので、bold-italic が使えない
+# 設定やファル名の中で、これだけアンダースコアを使い bold_italic としている
+
 font:
   catalog:
-    GenYoMinJP:
-      normal: GenYoMinJP-Medium.ttf  # GenYoMinJP-Regular.ttf
-      italic: GenYoMinJP-Medium.ttf
-      bold:   GenYoMinJP-SemiBold.ttf
-      bold_italic: GenYoMinJP-Bold.ttf
-    AozoraMincho:
-      normal: AozoraMinchoRegular.ttf
-      italic: AozoraMinchoMedium.ttf # Bold 強調を代用 AozoraMinchoRegular.ttf
-      bold: AozoraMinchoMedium.ttf
-      bold_italic: GenShinGothic-P-Medium.ttf  # dlistの用語対応のずるい逃げ方 AozoraMinchoMedium.ttf
-    GenShinGothic-P:
-      normal: GenShinGothic-P-Normal.ttf
-      italic: GenShinGothic-P-Medium.ttf # Bold 強調を代用 GenShinGothic-P-Normal.ttf
-      bold: GenShinGothic-P-Medium.ttf
-      bold_italic: GenShinGothic-P-Bold.ttf
-    GenShinGothic-P-L:
-      normal: GenShinGothic-P-Light.ttf
-      italic: GenShinGothic-P-Normal.ttf # Bold 強調を代用 GenShinGothic-P-Light.ttf
-      bold: GenShinGothic-P-Normal.ttf
-      bold_italic: GenShinGothic-P-Regular.ttf
-    Migu 1m:
+    merge: true # extendsに記載のカタログにマージする
+    Noto Sans JP: # PPTXで作成した図に使っているフォント名
+      normal: NotoSansJP-Regular.ttf
+      italic: NotoSansJP-Medium.ttf
+      bold: NotoSansJP-Bold.ttf
+      bold_italic:  NotoSansJP-Bold.ttf
+    Noto Sans JP Medium: # PPTXで作成した図に使っているフォント名
+      normal: NotoSansJP-Regular.ttf
+      italic: NotoSansJP-Medium.ttf
+      bold: NotoSansJP-Bold.ttf
+      bold_italic:  NotoSansJP-Bold.ttf
+    NotoSansJP:
+      normal: NotoSansJP-Regular.ttf
+      italic: NotoSansJP-Medium.ttf
+      bold: NotoSansJP-Bold.ttf
+      bold_italic:  NotoSansJP-Bold.ttf
+    NotoSansJP-L:
+      normal: NotoSansJP-Light.ttf
+      italic: NotoSansJP-Regular.ttf
+      bold: NotoSansJP-SemiBold.ttf
+      bold_italic: NotoSansJP-SemiBold.ttf
+      # NotoSansJP-ExtraLight.ttf
+      # NotoSansJP-Thin.ttf
+      # NotoSansJP-ExtraBold.ttf
+      # NotoSansJP-Black.ttf
+    NotoSerifJP:
+      normal: NotoSerifJP-Regular.ttf
+      italic: NotoSerifJP-Medium.ttf
+      bold: NotoSerifJP-Bold.ttf
+      bold_italic: NotoSerifJP-Bold.ttf
+      # NotoSerifJP-ExtraLight.ttf
+      # NotoSerifJP-ExtraBold.ttf
+      # NotoSerifJP-Black.ttf
+    NotoSerifJP-L:
+      normal: NotoSerifJP-Light.ttf
+      italic: NotoSerifJP-Regular.ttf
+      bold: NotoSerifJP-SemiBold.ttf
+      bold_italic: NotoSerifJP-SemiBold.ttf
+    PlemolJP:
+      normal: PlemolJP-Text.ttf
+      italic: PlemolJP-TextItalic.ttf
+      # normal: PlemolJP-Light.ttf
+      # italic: PlemolJP-LightItalic.ttf
+      bold: PlemolJP-SemiBold.ttf
+      bold_italic: PlemolJP-SemiBoldItalic.ttf
+      # bold: PlemolJP-Medium.ttf
+      # bold_italic: PlemolJP-MediumItalic.ttf
+    Migu 1m: # オリジナルではなくcallout丸数字を加工してあるもの
       normal: Migu-1M-Regular-circle-digit-reverse.ttf  # migu-1m-regular.ttf
+      italic: Migu-1M-Regular-circle-digit-reverse.ttf  # ほんとはイタリックがほしい
       bold: migu-1m-bold.ttf
-      italic: RictyDiminished-Oblique.ttf
-      bold_italic: RictyDiminished-BoldOblique.ttf
-      # italic: migu-1m-regular.ttf    # ほんとはイタリックがほしい
-      # bold_italic: migu-1m-bold.ttf  # ほんとはボールドイタリックがほしい
-    RictyDiminished:
-      normal: RictyDiminished-Regular.ttf
-      bold: RictyDiminished-Bold.ttf
-      italic: RictyDiminished-Oblique.ttf
-      bold_italic: RictyDiminished-BoldOblique.ttf
-    # M+ 1mn:
-    #   normal: mplus1mn-regular-ascii-conums.ttf
-    #   bold: mplus1mn-bold-ascii.ttf
-    #   italic: mplus1mn-italic-ascii.ttf
-    #   bold_italic: mplus1mn-bold_italic-ascii.ttf
+      bold_italic: migu-1m-bold.ttf  # ほんとはボールドイタリックがほしい
+    M+ 1mn: # asciidoctor-pdf組込みのではなくフルセット
+      normal: mplus1mn-regular-ascii-conums.ttf
+      bold: mplus1mn-bold-ascii.ttf
+      italic: mplus1mn-italic-ascii.ttf
+      bold_italic: mplus1mn-bold_italic-ascii.ttf
     M+ 1p Fallback:
       normal: mplus1p-regular-fallback.ttf
       bold: mplus1p-regular-fallback.ttf
@@ -51,16 +76,16 @@ page:
   background_color: ffffff
   layout: portrait
   # [top,right,bottom,left]
-  margin: [20mm, 20mm, 20mm, 20mm]
-  margin_inner: 3.0cm
-  margin_outer: 2.5cm
+  margin: [20mm, 15mm, 20mm, 15mm]
+  margin_inner: 2.5cm
+  margin_outer: 2.0cm
   size: [210mm, 297mm]  # JIS A4
 
 base:
   align: left
-  font_family: AozoraMincho # GenYoMinJP # AozoraMincho
-  line_height: 1.5
+  font_family: NotoSerifJP # GenYoMinJP # AozoraMincho
   font_size: 10
+  line_height: 1.5
   line_height_length: 12
   font_size_small: 9
   border_color: 7F7F7F
@@ -103,7 +128,7 @@ block:
 
 verse:
   font_size: $base_font_size_small
-  font_family: GenShinGothic-P
+  font_family: NotoSansJP # GenShinGothic-P
   border-color: 89C9DB
   cite:
     font-color: 44646D
@@ -111,7 +136,7 @@ verse:
 heading:
   align: left
   font_color: 2D466B
-  font_family: GenShinGothic-P
+  font_family: NotoSansJP # GenShinGothic-P
   font_style: normal
   chapter-break-before: always # auto
   # h1 is used for part titles (book doctype only)
@@ -146,11 +171,11 @@ section:
 
 title_page:
   align: center
-  background_color: #e5edff
+  background_color: e5edff
   title:
     top: 20%
     font_family: $heading_font_family
-    font_size: 26pt # $heading_h1_font_size
+    font_size: 24pt # $heading_h1_font_size
     font_style: bold
     font_color: 2D466B # 592C68  # 999999
     line_height: 1.1  # 0.9
@@ -172,104 +197,190 @@ title_page:
 caption:
   align: left
   font_size: $base_font_size
-  font_family: GenShinGothic-P
+  font_family: NotoSansJP-L # GenShinGothic-P
   font_color: 703f1c # 466B2D # 6B522D # 800000   # $literal_font_color
   # margin_inside: $vertical_rhythm / 3
   margin_outside: 0
+
+# leadカテゴリはなくなり、roleのひとつになったはずなんだけど…
 lead:
-  font_family: GenShinGothic-P
-  font_size: $base_font_size * 1.1
-  line_height: 1.4
-  font_color: 466B2D # 6B522D # 800000
-  background_color: F2F2F2 #  ECF8F5  # eeeeee
-abstract:
-  font_family: GenShinGothic-P
-  font-color: 466B2D # 5c6266
-  font-size: $base_font_size
-  # font-style: bold
+  font-family: NotoSansJP  # GenShinGothic-P
+  font-size: $base-font-size
   line-height: 1.4
-  padding: [0, 12, 0, 12]
+  # font-style: bold
+  font-color: 2D6B33 # 355222  # 466B2D # 6B522D # 800000
+role:
+  proc-rqst:
+    font-family: NotoSansJP-L  # GenShinGothic-P
+    font-color: 222222 # 2D6B33 # 355222  # 466B2D # 6B522D # 800000
+    border-width: 1
+    border-color: D688D0
+    background-color: D688D0 # 696D7D  # 333333
+    # font-size: $base-font-size
+    # line-height: 1.4
+    # font-style: bold
+    # text-decoration: underline
+    # border-width: 0.5
+  proc-ovrv:
+    font-family: NotoSansJP-L
+    # border-offset: 1
+    font-color: 222222
+    border-width: 1
+    border-color: 88A9D6
+    background-color: 88A9D6 # 3498DB
+  proc-detl:
+    font-family: NotoSansJP-L
+    font-color: 222222
+    border-width: 1
+    border-color: 88D68E
+    background-color: 88D68E # 2ECC71
+  proc-impl:
+    font-family: NotoSansJP-L
+    font-color: 222222
+    border-width: 1
+    border-color: D6B588
+    background-color: D6B588 # f39C12
+  proc-test:
+    font-family: NotoSansJP-L
+    font-color: 222222
+    border-width: 1
+    border-color: FB9998 #
+    background-color: FB9998 #
+
+abstract:
+  font-family: NotoSansJP-L # GenShinGothic-P-L
+  font-color: $base-font-color # 466B2D # 5c6266
+  font-size: $base_font_size
+  font-style: normal  # bold
+  # line-height: 1.5
+  # padding: [0, 0, 0, 15mm] #  padding: [0, 12, 0, 12]
+  first-line:
+    font-family: NotoSansJP-L # GenShinGothic-P-L
+    font-color: 2D6B33 # $base-font-color # 466B2D # 5c6266
+    font-style: normal
   title:
-    align: left
-    font-color: 6B522D # 333333
-    font-family: GenShinGothic-P-L
-    font-size: $base_font_size
-    font-style: bold
+    align: left # center # left
+    font-color: 2D466B # 6B522D # 333333
+    font-family: NotoSansJP # GenShinGothic-P
+    font-size: $heading-h5-font-size # round($base-font-size * 2.0)
+    font-style: normal
+    padding-left: -2em;
     # text-transform: uppercase
+
+# list:
+#   indent: $base_font_size * 1.5
+#   item-spacing: 0
+#   marker:
+#     font-color: 4D596B
+# olist:
+#   marker:
+#     font-family: NotoSansJP-L # GenShinGothic-P-L
+#     font-size : $base-font-size * 0.9
+# ulist:
+#   marker:
+#     font-family: NotoSansJP-L # GenShinGothic-P-L
+#     font-size : $base-font-size * 1.5
+    # line-height: 0.6
+    # line-height: 1.5
+    # circle:
+    #   content: "\u25CB"
+    # disc:
+    #   content: "\u25CF"
+    # square:
+    #   content: "\u25A0"
 description-list:
-  term-font-style: bold_italic
+  term-font-family: NotoSansJP-L # NotoSansJP-L # GenShinGothic-P-L
+  term-font-style: bold
+  term-font-color: 4D596B # $base-font-color
+  term-line-height: 1.2
+  description-indent: 20
+
+image:
+  indent: [5mm, 0mm] # これを活かすにはライブラリが必要
+  # border-color: cccccc # 画像の領域を可視化したいならこの設定を使うと良い
+  # border-width: 2.0    # 画像の領域を可視化したいならこの設定を使うと良い
+  caption:
+    align: inherit
+#     color: inherit # 466B2D
 
 admonition:
-  font_family: GenShinGothic-P-L
-  font_color: $base_font_color
-  column_rule_color: $base_border_color
-  column_rule_width: $base_border_width
-  padding: [0, $horizontal_rhythm, 0, $horizontal_rhythm]
+  font-family: NotoSansJP-L # GenShinGothic-P-L
+  font-size: $base-font-size # * 0.9
+  font-color: 4D596B # $base-font-color
+  background-color: F6F6F6
+  column-rule-color: $base-border-color
+  column-rule-width: 0.5 # $base-border-width
   label:
-    font_style: $heading_font_style
+    font-style: $heading-font-style
 
 quote: # blockquote:
-  font_family: GenShinGothic-P-L
-  font_color: $literal_font_color
-  font_size: $base_font_size
-  border_color: B6E2D6 # $base_border_color
-  border_width: 5
-  # FIXME disable negative padding bottom once margin collapsing is implemented
-  padding: [0, $horizontal_rhythm, $block_margin_bottom * -0.75, $horizontal_rhythm + $blockquote_border_width / 2]
-  cite_font_size: $base_font_size_small
-  cite_font_color: 999999
+  font-family: NotoSansJP-L #  GenShinGothic-P-L
+  font-color: 2D466B # 2F2F2F
+  font-size: $base-font-size
+  border-color: B6E2D6 # $base-border-color
+  border-width: 5
+  cite-font-size: $base-font-size-small
+  cite-font-color: 808080 # 999999
 
 # code is used for source blocks (perhaps change to source or listing?)
 code:
-  font_color: $base_font_color
-  font_family: $literal_font_family
-  font_size: ceil($base_font_size)
-  padding: $code_font_size
-  line_height: 1.25
-  line_gap: 3.8
-  # highlight-background-color: ffff00 # rouge ではこれらしいが、効き目がない？
-  # background_color: E5F1FA # f5f5f5
-  border_color: ADD7EB # cccccc
-  border_radius: 8
-  border_width: 0.75
+  font-color: $base-font-color
+  font-family: PlemolJP # HackGenJP # MoralerspaceArgon # $codespan-font-family
+  font-size: $base-font-size
+  padding: 5
+  highlight-background-color: ffff00 # rouge ではこれらしいが、効き目がない？
+  line-gap: 1.0
+  line-height: 1.0
+  background-color: F2F2F2 # f5f5f5
+  border-color: ADD7EB # cccccc
+  border-radius: 0
+  border-width: 1
+
 conum:
-  font_family: Migu 1m
-  font_color: 416395
-  font_size: $base_font_size * 1.2
-  line_height: 4 / 3
+  font-family: Migu 1m
+  font-color: 2D466B # 416395
+  font-size: $code-font-size
+  # line-height: 4 / 3
+
 example:
-  border_color: $base_border_color
-  border_width: 0.75
-  # FIXME reenable padding bottom once margin collapsing is implemented
-  padding: [$vertical_rhythm, $horizontal_rhythm, 0, $horizontal_rhythm]
+  border-color: 6B522D #$base-border-color
+  border-width: 0.75
+
 sidebar:
-  font_family: GenShinGothic-P-L
-  font_color: $base_font_color
-  background_color: F2F2F2 #  ECF8F5  # eeeeee
-  border_color: $base_border_color  # B6E2D6  # e1e1e1
-  border_radius: 8
-  border_width: 0.75
-  # FIXME reenable padding bottom once margin collapsing is implemented
-  padding: [$vertical_rhythm, $vertical_rhythm * 1.2, 0, $vertical_rhythm * 1.2]
+  font-family: NotoSansJP-L # GenShinGothic-P-L
+  font-size: $base-font-size
+  font-color: $base-font-color
+  background-color: F5FFF9 # F2F2F2 #  ECF8F5  # eeeeee
+  border-color: 6B522D # $base-border-color  # B6E2D6  # e1e1e1
+  border-radius: 8
+  border-width: 0.75
   title:
     align: left
-    font_color: $heading_font_color
-    font_family: $heading_font_family
-    font_size: 12pt  # $heading_h5_font_size
-    font_style: $heading_font_style
+    font-color: $heading-font-color
+    font-family: $heading-font-family
+    font-size: $base-font-size
+    font-style: $heading-font-style
 
 table:
-  font_family: $heading_font_family
-  background_color: $page_background_color
-  head_background_color: f1eee8
-  head_font_color: $base_font_color
-  head_font_style: bold
-  body_background_color: $page_background_color
-  body_stripe_background_color: fbfaf8
-  foot_background_color: f0f0f0
-  border_color: e0dccd
-  border_width: $base_border_width
-  cell_padding: 5
+  font-family: NotoSansJP-L # GenShinGothic-P-L
+  background-color: $page-background-color
+  align: left
+  head:
+    background-color: F1EEE8  # 77A5C9 2D566B 4682b4 39639E 95B2C9
+    font-color: $base-font-color # C3D3DB
+    font-family: $heading-font-family
+    font-style: normal
+  body:
+    background-color: $page-background-color
+    stripe-background-color: F2F2F2
+  foot:
+    background-color: F0F0F0
+  border:
+    color: E0DCCD
+    width: $base-border-width
+  cell-padding: 5
+  caption:
+    text-align: left # 表の位置に依らず表の左端に配置
 
 toc:
   indent: 15  # $horizontal_rhythm * 1.6
@@ -277,18 +388,17 @@ toc:
   margin_top: 10pt
   h1:
     # h1 is used for part titles (book doctype only)
-    font_family: GenShinGothic-P
-    font_size: floor($base_font_size * 1.8)
-    font_color: $heading_h1_font_color
+    font-family: NotoSansJP # GenShinGothic-P
+    font-size: floor($base-font-size * 1.8)
+    font-color: $heading-h1-font-color
   h2:
-    font_family: GenShinGothic-P-L
-    font_style: bold
-    font_size: floor($base_font_size * 1.4)
-    font_color: $heading_h2_font_color
+    font-family: NotoSansJP # GenShinGothic-P
+    font-size: floor($base-font-size * 1.4)
+    font-color: $heading-h2-font-color
   h3:
-    font_family: $base_font_family
+    font-family: $base-font-family
     font_size: $base_font_size   # ceil($base_font_size * 0.8)
-    font_color: $heading_h3_font_color
+    font-color: $heading-h3-font-color
   h4:
     font-family: $base-font-family
     font-size: $base_font_size
@@ -302,12 +412,13 @@ footnotes:
 # extendsしたテーマのbase-font-sizeとbase-line-heightを使って計算してもらえないようだ。
 header:
   font_size: $base_font_size_small
-  font_family: GenShinGothic-P-L
+  font-family: NotoSansJP-L # GenShinGothic-P-L
   border_color: 7F7F7F
   # background_color: dddddd
   border_width: 0.75
-  height: $base_line_height_length * 3.5
-  padding: [$base_line_height_length / 2, 1, 0, 1]
+  height: $base-line-height-length * 3.5 # base-font-size * base-line-height * 3.5
+  padding: [0, 0, 5, 0]
+  # padding: [$base-line-height-length / 2, 1, 0, 1]
   vertical_align: bottom
   recto:
     left:
@@ -326,13 +437,14 @@ header:
       # content: '{document-title}'
 footer:
   font_size: $base_font_size_small
-  font_family: GenShinGothic-P-L
+  font-family: NotoSansJP-L # GenShinGothic-P-L
   # NOTE if background_color is set, background and border will span width of page
   border_color: 7F7F7F  # dddddd
   border_width: 0.25
-  height: $base_line_height_length * 3.0
-  padding: [$base_line_height_length / 2, 1, 0, 1]
-  vertical_align: top
+  height: $base-line-height-length * 3.5 # base-font-size * base-line-height * 3.5
+  #v padding の設定はなくて済みそう
+  # padding: [$base-line-height-length / 2, 1, 0, 1]
+  vertical-align: top
   #image_vertical_align: <alignment> or <number>
   # additional attributes for content:
   # * {page-count}
@@ -342,20 +454,31 @@ footer:
   # * {chapter-title}
   # * {section-title}
   # * {section-or-chapter-title}
-  recto:
+  recto: # 見開きにしたときの右ページ
     #columns: "<50% =0% >50%"
     right:
-      # content: '{page-number}'
-      #content: '{section-or-chapter-title} | {page-number}'
-      content: '{document-title}  |  {page-number}'
-    #center:
-    #  content: '{page-number}'
-  verso:
-    #columns: $footer_recto_columns
-    # right:
+      content: "{document-title} | {page-number}" # '|' の両側のスペースはN幅スペース（&ensp;）
     left:
-      content: '{page-number}  |  {document-subtitle}'
-      # content: $footer_recto_right_content
-      #content: '{page-number} | {chapter-title}'
+      content: '{version-label} {revnumber}'
+      # content: # '{document-title}' # 空のエントリにしてdefaultの設定を抑止する
+      # content: '{page-number}'
+      #content: '{section-or-chapter-title} | {page-number}' # '|' の両側のスペースはN幅スペース（&ensp;）
     #center:
     #  content: '{page-number}'
+  verso: # 見開きにしたときの左ページ
+    #columns: $footer-recto-columns
+    left:
+      content: "{page-number} | {document-subtitle}" # '|' の両側のスペースはN幅スペース（&ensp;）
+    right:
+      content: '{version-label} {revnumber}'
+      # content: # '{document-title}' # 空のエントリにしてdefaultの設定を抑止する
+      # content: $footer-recto-right-content
+      #content: '{page-number} | {chapter-title}' # '|' の両側のスペースはN幅スペース（&ensp;）
+    #center:
+    #  content: '{page-number}'
+
+# cover:
+#   front:
+#     image: image:book-front-cover.png[fit=fill]
+#   back:
+#     image: image:book-back-cover.png[fit=fill]

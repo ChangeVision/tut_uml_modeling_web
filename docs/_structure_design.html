@@ -7,8 +7,9 @@
 <meta name="generator" content="Asciidoctor 2.0.26">
 <meta name="description" content="この文書は、モデリングツールにastah*を使って、ソフトウェアの開発にUMLを使う方法について学ぶチュートリアルです。WEBアプリケーションの実装を通じて学びます。">
 <meta name="author" content="株式会社チェンジビジョン">
-<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</title>
+<title>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</title>
 <link rel="stylesheet" href="css/mystyle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
 <style>.toc-current{font-weight: bold;} .toc-root{font-family: "Open Sans","DejaVu Sans",sans-serif;
                        font-size: 0.9em;} #content{display: flex; flex-direction: column; flex: 1 1 auto;}
@@ -17,16 +18,16 @@
 </head>
 <body id="_structure_design" class="book toc2 toc-left">
 <div id="header">
-<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</h1>
+<h1>モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</h1>
 <div class="details">
 <span id="author" class="author">株式会社チェンジビジョン</span><br>
-<span id="revnumber">バージョン html 0903,</span>
-<span id="revdate">2026-03-29</span>
+<span id="revnumber">バージョン html 0951,</span>
+<span id="revdate">2026-04-01</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">目次</div>
-<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a></span></p><ul class="sectlevel1">
-<li><a href="_まえがき.html">まえがき</a>
+<p><span class="toc-root"><a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a></span></p><ul class="sectlevel1">
+<li><a href="_preface.html">はじめに</a>
 </li>
 <li><a href="_copyright.html">注意事項</a>
 </li>
@@ -75,7 +76,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -104,7 +105,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -124,8 +125,8 @@
 </div>
 <div id="scoresheet02" class="sidebarblock">
 <div class="content">
-<div class="title">スコアシートを観察してわかること（決めたこと）</div>
 <div class="ulist">
+<div class="title">スコアシートを観察してわかること（決めたこと）</div>
 <ul>
 <li>
 <p>スコアシートには、プレー開始日時が記載されている。</p>
@@ -189,7 +190,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 <div class="paragraph">
@@ -214,7 +215,7 @@
 <table>
 <tr>
 <td class="icon">
-<div class="title">ヒント</div>
+<i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
 設計に関わる構成要素は、対象とする業務やサービスを分析して得られることもあれば、開発に採用する資源や方式から得られることもあります。
@@ -325,7 +326,7 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 <div class="sect3">
 <h4 id="_オブジェクト図にスコアシートを追加する"><a class="anchor" href="#_オブジェクト図にスコアシートを追加する"></a>2.2.3. オブジェクト図にスコアシートを追加する</h4>
 <div class="paragraph">
-<p><a href="_structure_design.html#scoresheet01">図 2.1</a> や「<a href="_structure_design.html#scoresheet02">コラム 1</a> 」を観察しながら、スコアシートに記載されている要素をオブジェクト図に追加してみましょう。
+<p><a href="_structure_design.html#scoresheet01">図 2.1</a> や「<a href="_structure_design.html#scoresheet02">[scoresheet02]</a> 」を観察しながら、スコアシートに記載されている要素をオブジェクト図に追加してみましょう。
 まず、「スコアシート」オブジェクトを追加します。</p>
 </div>
 <div class="sect4">
@@ -381,7 +382,7 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 <table>
 <tr>
 <td class="icon">
-<div class="title">ヒント</div>
+<i class="fa icon-tip" title="ヒント"></i>
 </td>
 <td class="content">
 個々のオブジェクトを識別するためにつける名前のことを、オブジェクト名（またはインスタンス名）と呼びます。
@@ -467,7 +468,7 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 「Time」は、Rubyのクラスライブラリのクラスのひとつで、日付と時刻を操作するためのクラスです。このクラスに対応づけする見込みで割当ててみます。
@@ -695,7 +696,7 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 <h4 id="_オブジェクト図にフレームを追加する"><a class="anchor" href="#_オブジェクト図にフレームを追加する"></a>2.2.7. オブジェクト図にフレームを追加する</h4>
 <div class="paragraph">
 <p>次に、各スコアに記載されているフレームを追加しましょう。
-やはり、<a href="_structure_design.html#scoresheet01">図 2.1</a> や「<a href="_structure_design.html#scoresheet02">コラム 1</a> 」を観察しながら、作成します。
+やはり、<a href="_structure_design.html#scoresheet01">図 2.1</a> や「<a href="_structure_design.html#scoresheet02">[scoresheet02]</a> 」を観察しながら、作成します。
 ですが、フレームのオブジェクトの数が多いので、この場で作成してみるのは一部だけにします。</p>
 </div>
 <div class="sect4">
@@ -767,8 +768,8 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">オブジェクト同士のつながりを考える</div>
 <div class="ulist">
+<div class="title">オブジェクト同士のつながりを考える</div>
 <ul>
 <li>
 <p>スコアシートには、複数のゲームを記録できるので、スコアシートとゲームにはつながりがありそうです。</p>
@@ -1052,7 +1053,7 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 <table>
 <tr>
 <td class="icon">
-<div class="title">注記</div>
+<i class="fa icon-note" title="注記"></i>
 </td>
 <td class="content">
 コンポジション（Composition）を「合成集約」と呼ぶこともあります。
@@ -1193,8 +1194,8 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 </div>
 <div id="step_for_structure_model" class="sidebarblock">
 <div class="content">
-<div class="title">スコアシートの構造のモデルを作成した手順</div>
 <div class="olist arabic">
+<div class="title">スコアシートの構造のモデルを作成した手順</div>
 <ol class="arabic">
 <li>
 <p>スコアシートを観察して、どのような要素で構成されているか洗い出した。</p>
@@ -1232,13 +1233,13 @@ astah* Professional でオブジェクト図を作成するときは、「クラ
 </div>
 </div>
 <div class="paragraph nav-footer">
-<p>← 前: <a href="_preparation.html">第1章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（WEBアプリ版）</a> | 次: <a href="_model_to_code_design.html">第3章</a> →</p>
+<p>← 前: <a href="_preparation.html">第1章</a> | ↑ 上: <a href="tut_uml_modeling_web.html">モデルを使ってソフトウェアを開発しよう: UML初学者向けチュートリアル（Webアプリ版）</a> | 次: <a href="_model_to_code_design.html">第3章</a> →</p>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-バージョン html 0903<br>
-最終更新 2026-03-28 04:07:57 +0900
+バージョン html 0951<br>
+最終更新 2026-03-29 18:24:53 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.min.js"></script>

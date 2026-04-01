@@ -20,6 +20,8 @@
 * [[[ruby-book]]] まつもとゆきひろ, 『プログラミング言語 Ruby』, オライリー・ジャパン, 2009
 * [[[effective-ruby]]] Peter J. Jones (著), 長尾 高弘 (訳), arton (まえがき), 『Effective Ruby』, 翔泳社, 2015
 * [[[ruby-website]]] Ruby公式サイト, https://www.ruby-lang.org/ja/
+* [[[ruby-fol]]] 他言語からのRuby入門,  `https://www.ruby-lang.org/ja/documentation/ruby-from-other-languages/`
+* [[[ruby-qs]]] 20分ではじめるRuby, `https://www.ruby-lang.org/ja/documentation/quickstart/`
 
 [bibliography]
 === Webアプリケーション開発
