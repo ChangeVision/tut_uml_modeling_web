@@ -1,0 +1,37 @@
+<h1>ボウリングスコア管理システム</h1>
+
+<h2>新しいゲームを開始</h2>
+<form method="post" action="/games">
+  <div class="form-group">
+    <label>プレイヤー名（カンマ区切り）:</label>
+    <input type="text" name="players" placeholder="田中,佐藤,鈴木" required>
+  </div>
+  <button type="submit">ゲーム開始</button>
+</form>
+
+<h2>ゲーム履歴</h2>
+<div class="game-list">
+  <table>
+    <tr>
+      <th class="username">ゲームID</th>
+      <th>プレイヤー</th>
+      <th>状態</th>
+      <th>開始時刻</th>
+      <th>操作</th>
+    </tr>
+    <% @games.each do |game| %>
+    <tr>
+      <td><%= game['id'][0,8] %></td>
+      <td><%= game['players'] || '未設定' %></td>
+      <td><%= game['status'] == 'completed' ? '完了' : 'プレイ中' %></td>
+      <td><%= game['start_time'] %></td>
+      <td>
+        <a href="/games/<%= game['id'] %>"><button type="button">表示</button></a>
+        <form method="post" action="/games/<%= game['id'] %>/delete" style="display:inline;">
+          <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+</div>

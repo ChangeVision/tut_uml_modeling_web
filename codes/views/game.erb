@@ -1,0 +1,105 @@
+<h1>ボウリングゲーム</h1>
+<p><a href="/"><button type="button">← 戻る</button></a></p>
+
+<% if @game.finished? %>
+<h2 style="color: green;">ゲーム完了！</h2>
+<% else %>
+<h2>現在のプレイヤー: <%= @game.current_player.player %></h2>
+
+<div class="pin-buttons">
+  <%
+    current_frame = @game.current_player.current
+    case @game.current_player.state
+    when :WAIT_FOR_1ST
+      max_pins = 10
+    when :WAIT_FOR_2ND
+      if @game.current_player.fno == 10
+        max_pins = current_frame.strike? ? 10 : (10 - current_frame.first)
+      else
+        max_pins = 10 - current_frame.first
+      end
+    when :WAIT_FOR_3RD
+      frame10 = @game.current_player.frame(10)
+      if frame10.first == 10 || frame10.second == 10 || (frame10.first + frame10.second == 10)
+        max_pins = 10
+      else
+        max_pins = 10 - frame10.second
+      end
+    else
+      max_pins = 0
+    end
+  %>
+  <% (0..max_pins).each do |pins| %>
+    <button class="pin-button" onclick="play(<%= pins %>)"><%= pins %></button>
+  <% end %>
+</div>
+<% end %>
+
+
+<h2>スコアボード</h2>
+<table>
+  <tr>
+    <th class="username">名前</th>
+    <% (1..9).each do |frame| %>
+      <%
+        current_turn = !@game.finished? && @game.current_player.fno == frame
+        th_class = current_turn ? 'current' : ''
+      %>
+      <th class="<%= th_class %>" colspan="2"><%= frame %></th>
+    <% end %>
+    <%
+      current_turn_ten = !@game.finished? && @game.current_player.fno == 10
+      th_class_ten = current_turn_ten ? 'current-ten' : 'ten'
+    %>
+    <th class="<%= th_class_ten %>" colspan="3">10</th>
+    <th class="total">Total</th>
+  </tr>
+
+  <% @game.scores.each do |score| %>
+  <tr>
+    <td class="username" rowspan="2"><%= score.player %></td>
+    <% (1..9).each do |frame_no| %>
+      <% frame = score.frame(frame_no) %>
+      <td class="first"><%= display_roll(frame, :first) %></td>
+      <td class="second"><%= display_roll(frame, :second) %></td>
+    <% end %>
+
+    <% frame10 = score.frame(10) %>
+    <td class="first"><%= display_roll(frame10, :first, is_ten_frame: true) %></td>
+    <td class="second"><%= display_roll(frame10, :second, is_ten_frame: true) %></td>
+    <td class="third"><%= display_roll(frame10, :third, is_ten_frame: true) %></td>
+
+    <td class="total" rowspan="2"><%= score.frame(10).total %></td>
+  </tr>
+  <tr>
+    <% (1..10).each do |frame_no| %>
+      <%
+        frame = score.frame(frame_no)
+        colspan = frame_no == 10 ? 3 : 2
+      %>
+      <td class="score" colspan="<%= colspan %>"><%= frame.total %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
+
+<script>
+function play(pins) {
+  fetch('/games/<%= @game.id %>/play', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: 'pins=' + pins
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      alert(data.error);
+    } else {
+      location.reload();
+    }
+  })
+  .catch(error => {
+    alert('エラーが発生しました: ' + error);
+  });
+}
+</script>
