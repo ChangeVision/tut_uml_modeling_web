@@ -92,10 +92,8 @@ helpers do
         # ストライクもスペアもない場合は3投目なし
         return '' if prev_total < 10
 
-        # 3投目が未投球の場合（nilまたは初期値0）
-        # フレームの状態がFIXEDでない場合は未投球と判断
+        # 3投目が未投球の場合（NULL）
         return '' if value.nil?
-        return '' if value == 0 && frame.state != :FIXED
 
         # 3投目の表示
         if prev_total >= 10
@@ -202,7 +200,7 @@ class Score
           @frames << Frame.new(frame_no,
             first: frame_data['first_roll'],
             second: frame_data['second_roll'],
-            third: frame_data['third_roll'] || 0,
+            third: frame_data['third_roll'],
             spare_bonus: frame_data['spare_bonus'],
             strike_bonus: frame_data['strike_bonus'],
             total: frame_data['total'],
