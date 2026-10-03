@@ -1,0 +1,44 @@
+@startuml bowling_score_web_er
+' Web版ER図の案（クラス図 score.rb から導出）
+hide circle
+skinparam linetype ortho
+
+entity "score_sheets" as score_sheets {
+  * score_sheet_id : TEXT <<PK>>
+  --
+  * play_date : TIMESTAMP
+}
+
+entity "games" as games {
+  * game_id : TEXT <<PK>>
+  --
+  * score_sheet_id : TEXT <<FK>>
+  * turn : INTEGER
+}
+
+entity "scores" as scores {
+  * score_id : TEXT <<PK>>
+  --
+  * game_id : TEXT <<FK>>
+  * entry_order : INTEGER
+  * player_name : TEXT
+  * fno : INTEGER
+  * state : TEXT
+}
+
+entity "frames" as frames {
+  * score_id : TEXT <<PK,FK>>
+  * frame_no : INTEGER <<PK>>
+  --
+  * first : INTEGER
+  * second : INTEGER
+  * spare_bonus : INTEGER
+  * strike_bonus : INTEGER
+  * frame_total : INTEGER
+  * state : TEXT
+}
+
+score_sheets ||--o{ games
+games ||--|{ scores
+scores ||--|{ frames
+@enduml
