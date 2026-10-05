@@ -1,88 +1,55 @@
 <h1>ボウリングゲーム</h1>
-<p><a href="/"><button type="button">← 戻る</button></a></p>
+<p><a href="/"><button type="button" class="exec_btn">← 戻る</button></a></p>
 
+<% current_score = (@live && !@game.finished?) ? @game.scores[@game.turn] : nil %>
 <% if @game.finished? %>
-<h2 style="color: green;">ゲーム完了！</h2>
+  <h2>ゲーム終了</h2>
+<% elsif current_score %>
+  <h2>現在のプレーヤー: <%= current_score.player %>（第<%= current_score.fno %>フレーム）</h2>
+  <p>
+    <% (0..max_pins(current_score)).each do |pins| %>
+      <button type="button" class="exec_btn" onclick="play(<%= pins %>)"><%= pins %></button>
+    <% end %>
+  </p>
 <% else %>
-<h2>現在のプレイヤー: <%= @game.current_player.player %></h2>
-
-<div class="pin-buttons">
-  <%
-    current_frame = @game.current_player.current
-    case @game.current_player.state
-    when :WAIT_FOR_1ST
-      max_pins = 10
-    when :WAIT_FOR_2ND
-      if @game.current_player.fno == 10
-        max_pins = current_frame.strike? ? 10 : (10 - current_frame.first)
-      else
-        max_pins = 10 - current_frame.first
-      end
-    when :WAIT_FOR_3RD
-      frame10 = @game.current_player.frame(10)
-      if frame10.first == 10 || frame10.second == 10 || (frame10.first + frame10.second == 10)
-        max_pins = 10
-      else
-        max_pins = 10 - frame10.second
-      end
-    else
-      max_pins = 0
-    end
-  %>
-  <% (0..max_pins).each do |pins| %>
-    <button class="pin-button" onclick="play(<%= pins %>)"><%= pins %></button>
-  <% end %>
-</div>
+  <h2 class="alert">中断したゲームです（途中から再開することはできません）</h2>
 <% end %>
 
-
 <h2>スコアボード</h2>
+<% current_fno = current_score && [current_score.fno, 10].min %>
 <table>
   <tr>
     <th class="username">名前</th>
-    <% (1..9).each do |frame| %>
-      <%
-        current_turn = !@game.finished? && @game.current_player.fno == frame
-        th_class = current_turn ? 'current' : ''
-      %>
-      <th class="<%= th_class %>" colspan="2"><%= frame %></th>
+    <% (1..9).each do |fno| %>
+      <th class="<%= fno == current_fno ? 'current' : '' %>" colspan="2"><%= fno %></th>
     <% end %>
-    <%
-      current_turn_ten = !@game.finished? && @game.current_player.fno == 10
-      th_class_ten = current_turn_ten ? 'current-ten' : 'ten'
-    %>
-    <th class="<%= th_class_ten %>" colspan="3">10</th>
+    <th class="<%= current_fno == 10 ? 'current-ten' : 'ten' %>" colspan="3">10</th>
     <th class="total">Total</th>
   </tr>
 
   <% @game.scores.each do |score| %>
   <tr>
     <td class="username" rowspan="2"><%= score.player %></td>
-    <% (1..9).each do |frame_no| %>
-      <% frame = score.frame(frame_no) %>
-      <td class="first"><%= display_roll(frame, :first) %></td>
-      <td class="second"><%= display_roll(frame, :second) %></td>
+    <% (1..9).each do |fno| %>
+      <% frame = score.frame(fno) %>
+      <td class="first"><%= first_mark(frame) %></td>
+      <td class="second"><%= second_mark(frame) %></td>
     <% end %>
-
-    <% frame10 = score.frame(10) %>
-    <td class="first"><%= display_roll(frame10, :first, is_ten_frame: true) %></td>
-    <td class="second"><%= display_roll(frame10, :second, is_ten_frame: true) %></td>
-    <td class="third"><%= display_roll(frame10, :third, is_ten_frame: true) %></td>
-
-    <td class="total" rowspan="2"><%= score.frame(10).total %></td>
+    <% c1, c2, c3 = tenth_marks(score) %>
+    <td class="first"><%= c1 %></td>
+    <td class="second"><%= c2 %></td>
+    <td class="second"><%= c3 %></td>
+    <td class="total" rowspan="2"><%= game_total(score) %></td>
   </tr>
   <tr>
-    <% (1..10).each do |frame_no| %>
-      <%
-        frame = score.frame(frame_no)
-        colspan = frame_no == 10 ? 3 : 2
-      %>
-      <td class="score" colspan="<%= colspan %>"><%= frame.total %></td>
+    <% (1..10).each do |fno| %>
+      <td class="score" colspan="<%= fno == 10 ? 3 : 2 %>"><%= frame_total(score.frame(fno)) %></td>
     <% end %>
   </tr>
   <% end %>
 </table>
 
+<% if current_score %>
 <script>
 function play(pins) {
   fetch('/games/<%= @game.id %>/play', {
@@ -98,8 +65,7 @@ function play(pins) {
       location.reload();
     }
   })
-  .catch(error => {
-    alert('エラーが発生しました: ' + error);
-  });
+  .catch(error => alert('エラーが発生しました: ' + error));
 }
 </script>
+<% end %>
